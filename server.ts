@@ -47,12 +47,12 @@ function sanitizeSupabaseEnv(val: string | undefined, isUrl = false): string {
 
 const dbUrlAndKey = {
   get url() {
-    const rawUrl = process.env.SUPABASE_URL || "https://jfkfmvbmvhneslrqgcql.supabase.co";
-    return sanitizeSupabaseEnv(rawUrl, true) || "https://jfkfmvbmvhneslrqgcql.supabase.co";
+    const rawUrl = process.env.SUPABASE_URL || "https://hvbqbvorrroyrvlchmvb.supabase.co";
+    return sanitizeSupabaseEnv(rawUrl, true) || "https://hvbqbvorrroyrvlchmvb.supabase.co";
   },
   get key() {
-    const rawKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impma2ZtdmJtdmhuZXNscnFnY3FsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwNTM4ODQsImV4cCI6MjA5NzYyOTg4NH0.Usxt7wkGPJnT1hiMoaKVf1sYcIoq-ibszIhD8dIh94Y";
-    return sanitizeSupabaseEnv(rawKey, false) || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impma2ZtdmJtdmhuZXNscnFnY3FsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwNTM4ODQsImV4cCI6MjA5NzYyOTg4NH0.Usxt7wkGPJnT1hiMoaKVf1sYcIoq-ibszIhD8dIh94Y";
+    const rawKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh2YnFidm9ycnJveXJ2bGNobXZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwOTA4MjAsImV4cCI6MjA5NzYyOTg4NH0.PUJmwam12nMQgBo8jg_lp_pddaf351Igd8I4PAamfOQ";
+    return sanitizeSupabaseEnv(rawKey, false) || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh2YnFidm9ycnJveXJ2bGNobXZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwOTA4MjAsImV4cCI6MjA5NzYyOTg4NH0.PUJmwam12nMQgBo8jg_lp_pddaf351Igd8I4PAamfOQ";
   }
 };
 
@@ -78,8 +78,8 @@ const supabase = new Proxy({} as any, {
 });
 
 function useSupabase(): boolean {
-  const envUrl = process.env.SUPABASE_URL;
-  const envKey = process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const envUrl = process.env.SUPABASE_URL || "https://hvbqbvorrroyrvlchmvb.supabase.co";
+  const envKey = process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh2YnFidm9ycnJveXJ2bGNobXZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwOTA4MjAsImV4cCI6MjA5NzYyOTg4NH0.PUJmwam12nMQgBo8jg_lp_pddaf351Igd8I4PAamfOQ";
   if (!envUrl || !envKey) return false;
   
   const sanitizedUrl = sanitizeSupabaseEnv(envUrl, true);
@@ -2114,8 +2114,8 @@ app.get("/api/supabase/status", async (req, res) => {
   const rawUrl = process.env.SUPABASE_URL || "";
   const rawKey = process.env.SUPABASE_ANON_KEY || "";
   
-  const url = sanitizeSupabaseEnv(rawUrl, true) || "https://jfkfmvbmvhneslrqgcql.supabase.co";
-  const key = sanitizeSupabaseEnv(rawKey, false) || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impma2ZtdmJtdmhuZXNscnFnY3FsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwNTM4ODQsImV4cCI6MjA5NzYyOTg4NH0.Usxt7wkGPJnT1hiMoaKVf1sYcIoq-ibszIhD8dIh94Y";
+  const url = sanitizeSupabaseEnv(rawUrl, true) || "https://hvbqbvorrroyrvlchmvb.supabase.co";
+  const key = sanitizeSupabaseEnv(rawKey, false) || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh2YnFidm9ycnJveXJ2bGNobXZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwOTA4MjAsImV4cCI6MjA5NzYyOTg4NH0.PUJmwam12nMQgBo8jg_lp_pddaf351Igd8I4PAamfOQ";
   
   if (!url || !key) {
     return res.json({
