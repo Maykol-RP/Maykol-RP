@@ -1,0 +1,6 @@
+{
+  "name": "Andesmoda ERP POS Ecommerce",
+  "description": "Enterprise ERP, POS, and E-commerce system for Andesmoda with unifed inventory, marketing, shipping, and financials.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

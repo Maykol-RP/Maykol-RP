@@ -1,0 +1,252 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  ADMINISTRADOR
+  VENDEDOR
+  CLIENTE
+}
+
+enum UserStatus {
+  ACTIVO
+  BLOQUEADO
+}
+
+enum ProductStatus {
+  ACTIVO
+  INACTIVO
+}
+
+enum Channel {
+  WEB
+  POS
+}
+
+enum OrderStatus {
+  PENDIENTE
+  CONFIRMADO
+  PREPARANDO
+  ENVIADO
+  ENTREGADO
+  CANCELADO
+}
+
+enum PaymentMethod {
+  EFECTIVO
+  TARJETA
+  YAPE
+  PLIN
+  TRANSFERENCIA
+}
+
+enum FinanceType {
+  INGRESO
+  EGRESO
+}
+
+enum FinanceCategory {
+  VENTA
+  COMPRA_STOCK
+  GASTO_OPERATIVO
+  ENVIO
+  OTROS
+}
+
+enum CashRegisterStatus {
+  ABIERTA
+  CERRADA
+}
+
+model User {
+  id           String             @id @default(uuid())
+  email        String             @unique
+  name         String
+  role         Role               @default(CLIENTE)
+  status       UserStatus         @default(ACTIVO)
+  dni          String?            @unique
+  phone        String?
+  address      String?
+  passwordHash String             @default("$2b$10$unify-hash-placeholder-andesmoda")
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+  
+  // Relations
+  openedRegisters CashRegister[]  @relation("OpenedBy")
+  closedRegisters CashRegister[]  @relation("ClosedBy")
+}
+
+model Category {
+  id          String    @id @default(uuid())
+  name        String    @unique
+  description String
+  slug        String    @unique
+  
+  // Relations
+  products    Product[]
+}
+
+model Product {
+  id            String           @id @default(uuid())
+  sku           String           @unique
+  barcode       String           @unique
+  name          String
+  description   String
+  categoryId    String
+  brand         String           @default("AndesModa")
+  purchasePrice Decimal          @db.Decimal(12, 2)
+  salePrice     Decimal          @db.Decimal(12, 2)
+  offerPrice    Decimal          @db.Decimal(12, 2) @default(0.0)
+  minStock      Int              @default(5)
+  stock         Int              @default(0)
+  images        String[]         // Stored as text array/JSONB in PostgreSQL
+  status        ProductStatus    @default(ACTIVO)
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+
+  // Relations
+  category      Category         @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  variants      ProductVariant[]
+  orderItems    OrderItem[]
+}
+
+model ProductVariant {
+  id        String   @id @default(uuid())
+  productId String
+  sku       String   @unique
+  barcode   String   @unique
+  size      String   // E.g. "S", "M", "L", "XL"
+  color     String   // E.g. "Azul", "Rojo", "Blanco"
+  stock     Int      @default(0)
+  imageUrl  String?  // Custom image url for this color/variant
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  product    Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
+  orderItems OrderItem[]
+}
+
+model Customer {
+  id         String   @id @default(uuid())
+  dni        String   @unique
+  name       String
+  lastName   String
+  email      String   @unique
+  phone      String
+  address    String
+  totalSpent Decimal  @db.Decimal(12, 2) @default(0.0)
+  orderCount Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // Relations
+  orders     Order[]
+}
+
+model Order {
+  id                String        @id @default(uuid())
+  code              String        @unique // E.g. PED-0001
+  channel           Channel       @default(WEB)
+  customerId        String?
+  customerName      String
+  subtotal          Decimal       @db.Decimal(12, 2)
+  discount          Decimal       @db.Decimal(12, 2) @default(0.0)
+  shippingCost      Decimal       @db.Decimal(12, 2) @default(0.0)
+  total             Decimal       @db.Decimal(12, 2)
+  paymentMethod     PaymentMethod @default(EFECTIVO)
+  shippingMethodId  String?
+  shippingCarrier   String?
+  status            OrderStatus   @default(PENDIENTE)
+  timestamp         DateTime      @default(now())
+
+  // Relations
+  customer          Customer?       @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  shippingMethod    ShippingMethod? @relation(fields: [shippingMethodId], references: [id])
+  items             OrderItem[]
+}
+
+model OrderItem {
+  id        String   @id @default(uuid())
+  orderId   String
+  productId String
+  variantId String?
+  name      String
+  sku       String
+  quantity  Int
+  price     Decimal  @db.Decimal(12, 2)
+  total     Decimal  @db.Decimal(12, 2)
+
+  // Relations
+  order     Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product   Product         @relation(fields: [productId], references: [id], onDelete: Restrict)
+  variant   ProductVariant? @relation(fields: [variantId], references: [id], onDelete: SetNull)
+}
+
+model ShippingMethod {
+  id           String   @id @default(uuid())
+  name         String   @unique
+  cost         Decimal  @db.Decimal(12, 2)
+  deliveryTime String
+  status       UserStatus @default(ACTIVO)
+  createdAt    DateTime @default(now())
+
+  // Relations
+  orders       Order[]
+}
+
+model Coupon {
+  id           String      @id @default(uuid())
+  code         String      @unique
+  discountType String      // E.g. "PORCENTAJE", "MONTO", "ENVIO"
+  value        Decimal     @db.Decimal(12, 2)
+  status       UserStatus  @default(ACTIVO)
+  createdAt    DateTime    @default(now())
+}
+
+model CashRegister {
+  id            String              @id @default(uuid())
+  openedById    String
+  closedById    String?
+  openedAt      DateTime            @default(now())
+  closedAt      DateTime?
+  initialAmount Decimal             @db.Decimal(12, 2)
+  closedAmount  Decimal?            @db.Decimal(12, 2)
+  status        CashRegisterStatus  @default(ABIERTA)
+
+  // Relations
+  openedBy      User                @relation("OpenedBy", fields: [openedById], references: [id])
+  closedBy      User?               @relation("ClosedBy", fields: [closedById], references: [id])
+}
+
+model FinanceTransaction {
+  id          String          @id @default(uuid())
+  type        FinanceType
+  category    FinanceCategory
+  amount      Decimal         @db.Decimal(12, 2)
+  description String
+  timestamp   DateTime        @default(now())
+  refId       String?         // E.g. Order ID
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  timestamp DateTime @default(now())
+  user      String
+  role      String
+  action    String
+  details   String
+}
+
+model SystemSetting {
+  id          String   @id @default(uuid())
+  key         String   @unique
+  value       String
+  description String?
+  updatedAt   DateTime @updatedAt
+}
