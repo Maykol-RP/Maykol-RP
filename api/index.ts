@@ -2136,12 +2136,6 @@ app.get("/api/supabase/status", async (req, res) => {
         configured: true,
         status: "ERROR",
         url: url,
-        rawUrl: rawUrl,
-        rawUrlLength: rawUrl.length,
-        rawKeyLength: rawKey.length,
-        keyLength: key ? key.length : 0,
-        keyStart: key ? key.substring(0, 15) : "",
-        keyEnd: key ? key.substring(key.length - 15) : "",
         message: `Error al conectar a Supabase: ${error.message}. Asegúrate de haber ejecutado todo el script de creación de tablas en el panel de SQL Editor de tu proyecto de Supabase.`
       });
     }
