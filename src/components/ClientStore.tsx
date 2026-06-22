@@ -6,13 +6,11 @@ import {
   ArrowRight, X, Clock, Eye, Heart, User as UserIcon, LogOut, 
   Mail, Phone, ShieldCheck, HelpCircle, Compass, 
   ChevronRight, ArrowLeft, Info, Calendar, DollarSign,
-  Sun, Moon, Settings, Instagram, Facebook, Twitter, Shield
+  Sun, Moon
 } from 'lucide-react';
 import { Product, Category, ShippingMethod, Coupon, Banner, Promotion, Order, User } from '../types';
 import { submitOrder, createUser } from '../api';
 import AIChatbot from './AIChatbot';
-import { gsap } from 'gsap';
-import { useGSAP } from '@gsap/react';
 
 interface ClientStoreProps {
   products: Product[];
@@ -127,21 +125,6 @@ export default function ClientStore({
       if (actualUser.address) setCheckoutAddress(actualUser.address);
     }
   }, [actualUser]);
-
-  useGSAP(() => {
-    // Set elements visible first to prevent flash of invisible content
-    gsap.set('.gsap-hero', { opacity: 1, y: 0 });
-    gsap.set('.gsap-card', { opacity: 1, y: 0 });
-    // Then animate them in
-    const heroEls = document.querySelectorAll('.gsap-hero');
-    if (heroEls.length > 0) {
-      gsap.from(heroEls, { y: 40, opacity: 0, duration: 0.7, ease: 'power3.out', stagger: 0.08, clearProps: 'all' });
-    }
-    const cardEls = document.querySelectorAll('.gsap-card');
-    if (cardEls.length > 0) {
-      gsap.from(cardEls, { y: 20, opacity: 0, duration: 0.5, ease: 'power2.out', stagger: 0.06, clearProps: 'all' });
-    }
-  }, [activeStoreTab]);
 
   // Filter only active, in-stock products for catalog
   const visibleProducts = useMemo(() => {
@@ -443,7 +426,7 @@ export default function ClientStore({
   };
 
   return (
-    <div className={`min-h-screen transition-colors duration-200 ${isDarkMode ? 'bg-black text-zinc-100' : 'bg-neutral-50 text-neutral-900'} pb-20`}>
+    <div className={`min-h-screen transition-colors duration-200 ${isDarkMode ? 'bg-zinc-950 text-zinc-100' : 'bg-neutral-50 text-neutral-900'} pb-20`}>
       
       {/* Top promotional ribbon banner */}
       {activePromo && (
@@ -455,7 +438,7 @@ export default function ClientStore({
 
       {/* Main E-commerce Public Header */}
       <header className={`sticky top-0 z-40 backdrop-blur-md border-b ${isDarkMode ? 'bg-zinc-900/90 border-zinc-800' : 'bg-white/90 border-neutral-200'} transition-all duration-150`}>
-        <div className="w-full px-6 sm:px-10 lg:px-16 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
           
           {/* Logo Brand coordinates */}
           <div className="flex items-center gap-3 cursor-pointer select-none" onClick={() => setActiveStoreTab('INICIO')}>
@@ -472,43 +455,43 @@ export default function ClientStore({
           <nav className="flex flex-wrap items-center justify-center gap-1 text-xs font-bold">
             <button 
               onClick={() => { setActiveStoreTab('INICIO'); setSelectedTrackOrder(null); }}
-              className={`px-3 py-2 rounded-lg transition-all ${activeStoreTab === 'INICIO' ? 'bg-black dark:bg-white text-white dark:text-black shadow-sm' : 'hover:bg-neutral-100 dark:hover:bg-zinc-800 text-zinc-500 dark:text-zinc-350'}`}
+              className={`px-3 py-2 rounded-lg transition-all ${activeStoreTab === 'INICIO' ? 'bg-amber-600 text-white shadow-sm' : 'hover:bg-neutral-100 dark:hover:bg-zinc-800 text-zinc-500 dark:text-zinc-350'}`}
             >
               Inicio
             </button>
             <button 
               onClick={() => { setActiveStoreTab('TIENDA'); setSelectedTrackOrder(null); }}
-              className={`px-3 py-2 rounded-lg transition-all ${activeStoreTab === 'TIENDA' ? 'bg-black dark:bg-white text-white dark:text-black shadow-sm' : 'hover:bg-neutral-100 dark:hover:bg-zinc-800 text-zinc-500 dark:text-zinc-350'}`}
+              className={`px-3 py-2 rounded-lg transition-all ${activeStoreTab === 'TIENDA' ? 'bg-amber-600 text-white shadow-sm' : 'hover:bg-neutral-100 dark:hover:bg-zinc-800 text-zinc-500 dark:text-zinc-350'}`}
             >
               Tienda
             </button>
             <button 
               onClick={() => { setActiveStoreTab('CATEGORIAS'); setSelectedTrackOrder(null); }}
-              className={`px-3 py-2 rounded-lg transition-all ${activeStoreTab === 'CATEGORIAS' ? 'bg-black dark:bg-white text-white dark:text-black shadow-sm' : 'hover:bg-neutral-100 dark:hover:bg-zinc-800 text-zinc-500 dark:text-zinc-350'}`}
+              className={`px-3 py-2 rounded-lg transition-all ${activeStoreTab === 'CATEGORIAS' ? 'bg-amber-600 text-white shadow-sm' : 'hover:bg-neutral-100 dark:hover:bg-zinc-800 text-zinc-500 dark:text-zinc-350'}`}
             >
               Categorías
             </button>
             <button 
               onClick={() => { setActiveStoreTab('OFERTAS'); setSelectedTrackOrder(null); }}
-              className={`px-3 py-2 rounded-lg transition-all ${activeStoreTab === 'OFERTAS' ? 'bg-black dark:bg-white text-white dark:text-black shadow-sm' : 'hover:bg-neutral-100 dark:hover:bg-zinc-800 text-zinc-500 dark:text-zinc-350'}`}
+              className={`px-3 py-2 rounded-lg transition-all ${activeStoreTab === 'OFERTAS' ? 'bg-amber-600 text-white shadow-sm' : 'hover:bg-neutral-100 dark:hover:bg-zinc-800 text-zinc-500 dark:text-zinc-350'}`}
             >
               Ofertas
             </button>
             <button 
               onClick={() => { setActiveStoreTab('NOSOTROS'); setSelectedTrackOrder(null); }}
-              className={`px-3 py-2 rounded-lg transition-all ${activeStoreTab === 'NOSOTROS' ? 'bg-black dark:bg-white text-white dark:text-black shadow-sm' : 'hover:bg-neutral-100 dark:hover:bg-zinc-800 text-zinc-500 dark:text-zinc-350'}`}
+              className={`px-3 py-2 rounded-lg transition-all ${activeStoreTab === 'NOSOTROS' ? 'bg-amber-600 text-white shadow-sm' : 'hover:bg-neutral-100 dark:hover:bg-zinc-800 text-zinc-500 dark:text-zinc-350'}`}
             >
               Nosotros
             </button>
             <button 
               onClick={() => { setActiveStoreTab('CONTACTO'); setSelectedTrackOrder(null); }}
-              className={`px-3 py-2 rounded-lg transition-all ${activeStoreTab === 'CONTACTO' ? 'bg-black dark:bg-white text-white dark:text-black shadow-sm' : 'hover:bg-neutral-100 dark:hover:bg-zinc-800 text-zinc-500 dark:text-zinc-350'}`}
+              className={`px-3 py-2 rounded-lg transition-all ${activeStoreTab === 'CONTACTO' ? 'bg-amber-600 text-white shadow-sm' : 'hover:bg-neutral-100 dark:hover:bg-zinc-800 text-zinc-500 dark:text-zinc-350'}`}
             >
               Contacto
             </button>
             <button 
               onClick={() => { setActiveStoreTab('AYUDA'); setSelectedTrackOrder(null); }}
-              className={`px-3 py-2 rounded-lg transition-all ${activeStoreTab === 'AYUDA' ? 'bg-black dark:bg-white text-white dark:text-black shadow-sm' : 'hover:bg-neutral-100 dark:hover:bg-zinc-800 text-zinc-500 dark:text-zinc-350'}`}
+              className={`px-3 py-2 rounded-lg transition-all ${activeStoreTab === 'AYUDA' ? 'bg-amber-600 text-white shadow-sm' : 'hover:bg-neutral-100 dark:hover:bg-zinc-800 text-zinc-500 dark:text-zinc-350'}`}
             >
               Ayuda
             </button>
@@ -521,7 +504,7 @@ export default function ClientStore({
             <button
               onClick={onToggleDarkMode}
               title={isDarkMode ? "Cambiar a Modo Claro" : "Cambiar a Modo Oscuro"}
-              className="p-2.5 rounded-xl border border-neutral-300  hover:bg-neutral-100 dark:hover:bg-zinc-800 transition-all cursor-pointer flex items-center justify-center text-zinc-500  shrink-0"
+              className="p-2.5 rounded-xl border border-neutral-300 dark:border-zinc-700 hover:bg-neutral-100 dark:hover:bg-zinc-800 transition-all cursor-pointer flex items-center justify-center text-zinc-500 dark:text-zinc-300 shrink-0"
             >
               {isDarkMode ? <Sun className="w-4 h-4 text-amber-500" /> : <Moon className="w-4 h-4 text-neutral-600" />}
             </button>
@@ -529,7 +512,7 @@ export default function ClientStore({
             {/* Cart trigger btn */}
             <button
               onClick={() => setIsCartOpen(true)}
-              className="relative p-2.5 rounded-xl border border-neutral-300  hover:bg-neutral-100 dark:hover:bg-zinc-800 transition-all cursor-pointer flex items-center gap-2 text-xs"
+              className="relative p-2.5 rounded-xl border border-neutral-300 dark:border-zinc-700 hover:bg-neutral-100 dark:hover:bg-zinc-800 transition-all cursor-pointer flex items-center gap-2 text-xs"
             >
               <ShoppingBag className="w-4 h-4 text-amber-600" />
               {cart.length > 0 && (
@@ -559,19 +542,26 @@ export default function ClientStore({
                     setActiveStoreTab('INICIO');
                   }}
                   title="Cerrar Sesión"
-                  className="p-2 border border-neutral-300  hover:bg-red-50 dark:hover:bg-red-950/20 text-red-550 dark:text-red-400 rounded-lg transition-colors cursor-pointer"
+                  className="p-2 border border-neutral-300 dark:border-zinc-700 hover:bg-red-50 dark:hover:bg-red-950/20 text-red-550 dark:text-red-400 rounded-lg transition-colors cursor-pointer"
                 >
                   <LogOut className="w-3.5 h-3.5" />
                 </button>
               </div>
             ) : (
-              <button
-                onClick={() => setIsLoginModalOpen(true)}
-                title="Acceso Administrativo"
-                className="p-2.5 rounded-xl border border-transparent hover:bg-neutral-100 dark:hover:bg-zinc-800 text-zinc-400  hover:text-zinc-900 dark:hover:text-zinc-100 transition-all cursor-pointer flex items-center justify-center shrink-0"
-              >
-                <Settings className="w-4 h-4" />
-              </button>
+              <div className="flex items-center gap-1.5">
+                <button
+                  onClick={() => setIsLoginModalOpen(true)}
+                  className="text-xs font-black text-zinc-700 dark:text-zinc-300 hover:text-amber-500 px-3 py-2 rounded-lg"
+                >
+                  Iniciar Sesión
+                </button>
+                <button
+                  onClick={() => setIsRegisterModalOpen(true)}
+                  className="bg-amber-600 text-white hover:bg-amber-550 text-xs font-black px-3 py-2 rounded-lg transition-all shrink-0"
+                >
+                  Registrarse
+                </button>
+              </div>
             )}
 
           </div>
@@ -580,94 +570,76 @@ export default function ClientStore({
       </header>
 
       {/* Main tab panel renderers */}
-      <main className="w-full px-6 sm:px-10 lg:px-16">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
         
         {/* TAB 1: INICIO (Public Landing Home Section) */}
         {activeStoreTab === 'INICIO' && (
-          <div className="space-y-24 pb-20">
+          <div className="space-y-12">
             
-            {/* HERO EXPANDIDO */}
-            <section className="gsap-hero relative min-h-[600px] md:h-[75vh] w-full rounded-3xl overflow-hidden shadow-2xl">
-              <img 
-                src={activeBanners.length > 0 ? activeBanners[0].imageUrl : "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80&w=800"} 
-                alt="Hero"
-                className="w-full h-full object-cover" 
-              />
-              <div className="absolute inset-0 bg-black/40 flex flex-col justify-end md:justify-center p-8 sm:p-16">
-                <div className="max-w-2xl">
-                  <span className="font-mono text-xs tracking-widest text-white uppercase mb-4 block drop-shadow-md">
-                    Colección Exclusiva 2026
-                  </span>
-                  <h2 className="text-4xl sm:text-6xl md:text-7xl font-black text-white tracking-tighter leading-[1.1] drop-shadow-xl mb-6">
-                    {activeBanners.length > 0 ? activeBanners[0].title : 'Elegancia Tejida a Mano'}
-                  </h2>
-                  <p className="text-white/90 text-sm md:text-lg mb-8 max-w-lg font-medium drop-shadow-md">
-                    Descubre la más fina fibra de alpaca noble de Cusco. Un legado de lujo, historia y calidez incomparable.
-                  </p>
-                  <div className="flex flex-wrap gap-4">
-                    <button 
-                      onClick={() => setActiveStoreTab('TIENDA')}
-                      className="bg-white hover:bg-zinc-200 text-black font-black text-xs md:text-sm py-4 px-8 rounded-full transition-all shadow-xl flex items-center gap-2 cursor-pointer uppercase tracking-wider"
-                    >
-                      Descubrir Colección <ArrowRight className="w-4 h-4" />
-                    </button>
+            {/* Banner slide cover */}
+            {activeBanners.length > 0 && (
+              <div className="rounded-3xl overflow-hidden shadow-xl border border-amber-600/10 relative">
+                <div className="relative h-64 sm:h-80 md:h-[420px] w-full">
+                  <img 
+                    src={activeBanners[0].imageUrl} 
+                    alt={activeBanners[0].title}
+                    className="w-full h-full object-cover brightness-[0.7]" 
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/45 to-transparent flex flex-col justify-end p-6 sm:p-12">
+                    <span className="font-mono text-[10px] tracking-widest text-amber-400 font-bold uppercase mb-2">Colección Imperial de Temporada</span>
+                    <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight max-w-xl leading-tight">
+                      {activeBanners[0].title}
+                    </h2>
+                    <p className="text-white/80 text-xs sm:text-sm max-w-lg mt-2 leading-relaxed">Tejidos confeccionados a mano por artesanos peruanos utilizando fibra purificada de alpaca noble de Cusco.</p>
+                    <div className="mt-6 flex flex-wrap gap-3">
+                      <button 
+                        onClick={() => setActiveStoreTab('TIENDA')}
+                        className="bg-amber-650 dark:bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs py-2.5 px-6 rounded-xl transition-all shadow-lg flex items-center gap-2 cursor-pointer"
+                      >
+                        Comprar Catálogo <ArrowRight className="w-3.5 h-3.5" />
+                      </button>
+                      <button 
+                        onClick={() => setActiveStoreTab('CATEGORIAS')}
+                        className="bg-white/10 hover:bg-white/20 text-white font-bold text-xs py-2.5 px-6 rounded-xl transition-all backdrop-blur-xs flex items-center gap-2 cursor-pointer"
+                      >
+                        Ver Colecciones
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
+            )}
+
+            {/* Corporate/Brand Value grid */}
+            <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                { icon: <Truck className="w-6 h-6 text-amber-500" />, title: 'Envíos Nacionales', desc: 'Despachos garantizados a todo el Perú mediante Olva y Starken.' },
+                { icon: <ShieldCheck className="w-6 h-6 text-amber-500" />, title: '100% Genuino', desc: 'Garantía certificada de lana premium de alpaca y vicuña.' },
+                { icon: <Sparkles className="w-6 h-6 text-amber-500" />, title: 'Artesanía Fina', desc: 'Hilado fino hilvanado por comunidades tejedoras andinas.' },
+                { icon: <Info className="w-6 h-6 text-amber-500" />, title: 'Asistencia 24/7', desc: 'Línea de soporte dedicada a pedidos y guías de tallaje.' },
+              ].map((val, idx) => (
+                <div key={idx} className={`p-5 rounded-2xl border ${isDarkMode ? 'bg-zinc-900/60 border-zinc-800' : 'bg-white border-neutral-200'} flex items-start gap-4 shadow-xs`}>
+                  <div className="p-3 bg-amber-500/10 rounded-xl">{val.icon}</div>
+                  <div>
+                    <h4 className="font-extrabold text-sm tracking-tight">{val.title}</h4>
+                    <p className="text-xs text-neutral-500 dark:text-zinc-400 mt-1">{val.desc}</p>
+                  </div>
+                </div>
+              ))}
             </section>
 
-            {/* LOOKBOOK / COLLECTIONS */}
-            <section className="gsap-hero">
-              <div className="flex justify-between items-end mb-8">
+            {/* Featured product carousel preview limits */}
+            <section className="space-y-6">
+              <div className="flex justify-between items-end">
                 <div>
-                  <h3 className="text-3xl font-black tracking-tight uppercase">El Lookbook</h3>
-                  <p className="text-sm text-zinc-500 mt-2">Nuestras categorías esenciales para la temporada.</p>
-                </div>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 h-auto md:min-h-[600px]">
-                <div className="relative rounded-3xl overflow-hidden group cursor-pointer" onClick={() => { setActiveStoreTab('CATEGORIAS'); }}>
-                  <img src="https://images.unsplash.com/photo-1549439602-43ebca2327af?auto=format&fit=crop&q=80&w=1000" alt="Suéteres" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-8">
-                    <div>
-                      <h4 className="text-white text-3xl font-black uppercase mb-2">Suéteres de Alpaca</h4>
-                      <span className="text-white/80 font-mono text-xs uppercase tracking-widest flex items-center gap-2">Explorar <ArrowRight className="w-3 h-3" /></span>
-                    </div>
-                  </div>
-                </div>
-                <div className="grid grid-rows-2 gap-4">
-                  <div className="relative rounded-3xl overflow-hidden group cursor-pointer" onClick={() => { setActiveStoreTab('CATEGORIAS'); }}>
-                    <img src="https://images.unsplash.com/photo-1604644401890-0bd678c83788?auto=format&fit=crop&q=80&w=800" alt="Bufandas" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-8">
-                      <div>
-                        <h4 className="text-white text-2xl font-black uppercase mb-1">Accesorios y Bufandas</h4>
-                        <span className="text-white/80 font-mono text-xs uppercase tracking-widest flex items-center gap-2">Explorar <ArrowRight className="w-3 h-3" /></span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="relative rounded-3xl overflow-hidden group cursor-pointer" onClick={() => { setActiveStoreTab('CATEGORIAS'); }}>
-                    <img src="https://images.unsplash.com/photo-1549439602-43ebca2327af?auto=format&fit=crop&q=80&w=800" alt="Abrigos" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-8">
-                      <div>
-                        <h4 className="text-white text-2xl font-black uppercase mb-1">Abrigos & Ponchos</h4>
-                        <span className="text-white/80 font-mono text-xs uppercase tracking-widest flex items-center gap-2">Explorar <ArrowRight className="w-3 h-3" /></span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            {/* PRENDAS DESTACADAS (EXISTING BUT POLISHED) */}
-            <section className="gsap-hero space-y-8">
-              <div className="flex justify-between items-end border-b border-zinc-200 pb-4">
-                <div>
-                  <h3 className="text-3xl font-black tracking-tight uppercase">Selección de Temporada</h3>
+                  <span className="text-[10px] tracking-wider text-amber-600 font-mono font-bold uppercase block mb-1">Elegidos para Ti</span>
+                  <h3 className="text-xl font-extrabold tracking-tight">Prendas Destacadas en Andesmoda</h3>
                 </div>
                 <button 
                   onClick={() => setActiveStoreTab('TIENDA')}
-                  className="text-xs font-bold text-zinc-900 dark:text-white uppercase tracking-widest flex items-center gap-2 hover:underline"
+                  className="text-xs font-bold text-amber-600 flex items-center gap-1 hover:underline"
                 >
-                  Ver todo <ChevronRight className="w-4 h-4" />
+                  Ver toda la tienda <ChevronRight className="w-4 h-4" />
                 </button>
               </div>
 
@@ -675,23 +647,23 @@ export default function ClientStore({
                 {products.filter(p => p.status === 'ACTIVO').slice(0, 4).map(p => {
                   const hasOffer = p.offerPrice > 0;
                   return (
-                    <div key={p.id} className={`gsap-card rounded-2xl border overflow-hidden transition-all duration-200 group flex flex-col justify-between ${isDarkMode ? 'bg-zinc-900/40 border-zinc-800 hover:border-zinc-500/30' : 'bg-white border-neutral-100 hover:shadow-md'}`}>
-                      <div className="relative aspect-[3/4] overflow-hidden bg-zinc-100 dark:bg-zinc-850">
-                        <img src={p.images?.[0] || 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80&w=400'} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" referrerPolicy="no-referrer" />
-                        {hasOffer && <span className="absolute top-3 left-3 bg-red-600 text-white text-[9px] font-black px-2 py-0.5 rounded-sm uppercase tracking-widest">Oferta</span>}
+                    <div key={p.id} className={`rounded-2xl border overflow-hidden transition-all duration-200 group flex flex-col justify-between ${isDarkMode ? 'bg-zinc-900/40 border-zinc-800 hover:border-amber-600/30' : 'bg-white border-neutral-100 hover:shadow-md'}`}>
+                      <div className="relative aspect-square overflow-hidden bg-zinc-100 dark:bg-zinc-850">
+                        <img src={p.images[0]} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" referrerPolicy="no-referrer" />
+                        {hasOffer && <span className="absolute top-3 left-3 bg-red-655 text-white bg-red-600 text-[9px] font-bold px-2 py-0.5 rounded-md uppercase">Oferta</span>}
                       </div>
-                      <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
+                      <div className="p-4 flex-1 flex flex-col justify-between space-y-4">
                         <div>
-                          <span className="text-[10px] text-zinc-400 block font-mono uppercase tracking-widest">{p.category}</span>
-                          <h4 className="font-extrabold text-sm tracking-tight line-clamp-2 mt-1">{p.name}</h4>
+                          <span className="text-[9px] text-zinc-400 block font-mono">{p.category}</span>
+                          <h4 className="font-bold text-xs tracking-tight line-clamp-2 mt-1">{p.name}</h4>
                         </div>
                         <div className="flex justify-between items-center">
-                          <span className="font-mono text-sm font-black text-zinc-900 dark:text-white">S/. {(hasOffer ? p.offerPrice : p.salePrice).toFixed(2)}</span>
+                          <span className="font-mono text-sm font-black text-amber-653 text-amber-500">S/. {(hasOffer ? p.offerPrice : p.salePrice).toFixed(2)}</span>
                           <button 
                             onClick={() => handleAddToCart(p)}
-                            className="bg-black hover:bg-black dark:bg-white dark:hover:bg-zinc-200 text-white dark:text-zinc-900 p-2 rounded-full font-bold transition-transform hover:scale-105 cursor-pointer"
+                            className="bg-amber-600 hover:bg-amber-505 p-1.5 rounded-lg text-white font-bold text-xs"
                           >
-                            <Plus className="w-4 h-4" />
+                            <ShoppingCart className="w-3.5 h-3.5" />
                           </button>
                         </div>
                       </div>
@@ -700,108 +672,6 @@ export default function ClientStore({
                 })}
               </div>
             </section>
-
-            {/* STORYTELLING / ARTISAN STORY */}
-            <section className="gsap-hero relative bg-black dark:bg-zinc-900 rounded-3xl overflow-hidden flex flex-col md:flex-row items-center">
-              <div className="w-full md:w-1/2 p-10 md:p-20 text-white">
-                <Shield className="w-10 h-10 mb-6 text-zinc-400" />
-                <h3 className="text-3xl md:text-5xl font-black uppercase leading-tight tracking-tight mb-6">El Arte Intemporal de los Andes</h3>
-                <p className="text-zinc-400 text-sm md:text-base leading-relaxed mb-8 max-w-md">
-                  Cada prenda de AndesModa es el resultado de cientos de horas de hilado meticuloso. Nuestras comunidades artesanas en Cusco preservan técnicas ancestrales, garantizando prendas de pureza y durabilidad excepcional.
-                </p>
-                <button 
-                  onClick={() => setActiveStoreTab('NOSOTROS')}
-                  className="border border-white/30 hover:bg-white hover:text-black text-white font-bold text-xs uppercase tracking-widest py-3 px-8 rounded-full transition-all cursor-pointer"
-                >
-                  Conocer Nuestra Historia
-                </button>
-              </div>
-              <div className="w-full md:w-1/2 min-h-[400px] md:min-h-[500px]">
-                <img src="https://images.unsplash.com/photo-1434389670869-c88439226ebc?auto=format&fit=crop&q=80&w=1000" alt="Artesana tejiendo" className="w-full h-full object-cover grayscale opacity-80" />
-              </div>
-            </section>
-
-            {/* CORPORATE VALUES */}
-            <section className="gsap-hero border-y border-zinc-200 py-12">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                {[
-                  { icon: <Truck className="w-6 h-6 text-zinc-900 dark:text-white" />, title: 'Envíos Nacionales', desc: 'Despachos garantizados a todo el Perú.' },
-                  { icon: <ShieldCheck className="w-6 h-6 text-zinc-900 dark:text-white" />, title: '100% Genuino', desc: 'Lana certificada de alpaca y vicuña.' },
-                  { icon: <Sparkles className="w-6 h-6 text-zinc-900 dark:text-white" />, title: 'Artesanía Fina', desc: 'Hilado fino por tejedoras andinas.' },
-                  { icon: <Info className="w-6 h-6 text-zinc-900 dark:text-white" />, title: 'Asistencia 24/7', desc: 'Soporte dedicado a tus pedidos.' },
-                ].map((val, idx) => (
-                  <div key={idx} className="flex flex-col items-center text-center px-4">
-                    <div className="p-4 bg-zinc-100 rounded-full mb-4">{val.icon}</div>
-                    <h4 className="font-extrabold text-sm uppercase tracking-wider mb-2">{val.title}</h4>
-                    <p className="text-xs text-zinc-500 dark:text-zinc-400">{val.desc}</p>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* NEWSLETTER */}
-            <section className="gsap-hero bg-zinc-100 rounded-3xl p-10 md:p-20 text-center max-w-5xl mx-auto">
-              <h3 className="text-3xl font-black uppercase tracking-tight mb-4">Únete al Círculo Andesmoda</h3>
-              <p className="text-zinc-500 dark:text-zinc-400 text-sm mb-8 max-w-lg mx-auto">
-                Suscríbete a nuestro boletín para recibir acceso anticipado a nuevas colecciones, ofertas exclusivas y editoriales de moda andina.
-              </p>
-              <form onSubmit={(e) => { e.preventDefault(); (window as any).showToast?.('Suscripción exitosa', 'success'); }} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-                <input 
-                  type="email" 
-                  placeholder="Tu correo electrónico" 
-                  required
-                  className="flex-1 bg-white dark:bg-black border border-zinc-200 text-sm px-5 py-3 rounded-xl outline-none focus:border-black dark:focus:border-white transition-colors"
-                />
-                <button type="submit" className="cursor-pointer bg-black dark:bg-white text-white dark:text-black font-black text-xs uppercase tracking-widest px-8 py-3 rounded-xl hover:bg-zinc-800 transition-colors">
-                  Suscribirme
-                </button>
-              </form>
-            </section>
-
-            {/* FOOTER */}
-            <footer className="gsap-hero pt-16 pb-8 border-t border-zinc-200">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
-                <div>
-                  <h4 className="font-black uppercase tracking-widest text-xs mb-6">Comprar</h4>
-                  <ul className="space-y-4 text-sm text-zinc-500">
-                    <li><button onClick={() => setActiveStoreTab('TIENDA')} className="cursor-pointer hover:text-zinc-900 dark:hover:text-white transition-colors">Ver Todo</button></li>
-                    <li><button onClick={() => setActiveStoreTab('CATEGORIAS')} className="cursor-pointer hover:text-zinc-900 dark:hover:text-white transition-colors">Colecciones</button></li>
-                    <li><button onClick={() => setActiveStoreTab('OFERTAS')} className="cursor-pointer hover:text-zinc-900 dark:hover:text-white transition-colors">Ofertas</button></li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-black uppercase tracking-widest text-xs mb-6">Ayuda</h4>
-                  <ul className="space-y-4 text-sm text-zinc-500">
-                    <li><button onClick={() => setActiveStoreTab('AYUDA')} className="cursor-pointer hover:text-zinc-900 dark:hover:text-white transition-colors">FAQ</button></li>
-                    <li><button onClick={() => setActiveStoreTab('AYUDA')} className="cursor-pointer hover:text-zinc-900 dark:hover:text-white transition-colors">Guía de Tallas</button></li>
-                    <li><button onClick={() => setActiveStoreTab('AYUDA')} className="cursor-pointer hover:text-zinc-900 dark:hover:text-white transition-colors">Envíos y Devoluciones</button></li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-black uppercase tracking-widest text-xs mb-6">Empresa</h4>
-                  <ul className="space-y-4 text-sm text-zinc-500">
-                    <li><button onClick={() => setActiveStoreTab('NOSOTROS')} className="cursor-pointer hover:text-zinc-900 dark:hover:text-white transition-colors">Nuestra Historia</button></li>
-                    <li><button onClick={() => setActiveStoreTab('CONTACTO')} className="cursor-pointer hover:text-zinc-900 dark:hover:text-white transition-colors">Contacto</button></li>
-                    <li><button onClick={() => setActiveStoreTab('NOSOTROS')} className="cursor-pointer hover:text-zinc-900 dark:hover:text-white transition-colors">Sostenibilidad</button></li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-black uppercase tracking-widest text-xs mb-6">Síguenos</h4>
-                  <div className="flex gap-4 text-zinc-500">
-                    <a href="#" className="hover:text-zinc-900 dark:hover:text-white transition-colors"><Instagram className="w-5 h-5" /></a>
-                    <a href="#" className="hover:text-zinc-900 dark:hover:text-white transition-colors"><Facebook className="w-5 h-5" /></a>
-                    <a href="#" className="hover:text-zinc-900 dark:hover:text-white transition-colors"><Twitter className="w-5 h-5" /></a>
-                  </div>
-                </div>
-              </div>
-              <div className="flex flex-col md:flex-row justify-between items-center text-xs text-zinc-400 font-mono pt-8 border-t border-zinc-200">
-                <p>&copy; 2026 ANDESMODA. Todos los derechos reservados.</p>
-                <div className="flex gap-4 mt-4 md:mt-0">
-                  <span className="cursor-pointer hover:text-zinc-900 dark:hover:text-white">Privacidad</span>
-                  <span className="cursor-pointer hover:text-zinc-900 dark:hover:text-white">Términos</span>
-                </div>
-              </div>
-            </footer>
 
           </div>
         )}
@@ -833,8 +703,8 @@ export default function ClientStore({
                   onClick={() => setSelectedCategory('TODOS')}
                   className={`px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
                     selectedCategory === 'TODOS'
-                      ? 'bg-black text-white dark:bg-white dark:text-black'
-                      : 'bg-zinc-100 text-zinc-700 hover:bg-zinc-200 dark:hover:bg-zinc-800'
+                      ? 'bg-amber-600 text-white'
+                      : 'bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-700'
                   }`}
                 >
                   Ver Todo ({products.filter(p => p.status === 'ACTIVO').length})
@@ -845,8 +715,8 @@ export default function ClientStore({
                     onClick={() => setSelectedCategory(cat.name)}
                     className={`px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
                       selectedCategory === cat.name
-                        ? 'bg-black text-white dark:bg-white dark:text-black'
-                        : 'bg-zinc-100 text-zinc-700 hover:bg-zinc-200 dark:hover:bg-zinc-800'
+                        ? 'bg-amber-600 text-white'
+                        : 'bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-700'
                     }`}
                   >
                     {cat.name}
@@ -867,23 +737,23 @@ export default function ClientStore({
                   const hasOffer = p.offerPrice > 0;
                   const isSaved = favorites.includes(p.id);
                   return (
-                    <div key={p.id} className={`gsap-card rounded-2xl border overflow-hidden transition-all duration-200 group flex flex-col justify-between ${isDarkMode ? 'bg-zinc-900/60 border-zinc-800 hover:border-amber-600/30' : 'bg-white border-neutral-100 hover:shadow-lg'}`}>
+                    <div key={p.id} className={`rounded-2xl border overflow-hidden transition-all duration-200 group flex flex-col justify-between ${isDarkMode ? 'bg-zinc-900/60 border-zinc-800 hover:border-amber-600/30' : 'bg-white border-neutral-100 hover:shadow-lg'}`}>
                       <div className="relative aspect-square overflow-hidden bg-zinc-100 dark:bg-zinc-850">
-                        <img src={p.images?.[0] || 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80&w=400'} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" referrerPolicy="no-referrer" />
+                        <img src={p.images[0]} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" referrerPolicy="no-referrer" />
                         
                         {/* Offer badge */}
-                        {hasOffer && <span className="absolute top-3 left-3 bg-red-600 text-white text-[9px] font-bold px-2 py-0.5 rounded-md uppercase">Oferta</span>}
+                        {hasOffer && <span className="absolute top-3 left-3 bg-red-655 bg-red-600 text-white text-[9px] font-bold px-2 py-0.5 rounded-md uppercase">Oferta</span>}
                         {p.stock <= 0 && <span className="absolute top-3 right-3 bg-black/85 text-white text-[9px] font-bold px-2 py-0.5 rounded-md uppercase">Agotado</span>}
                         
                         {/* Heart save wishlist */}
                         <button 
                           onClick={() => toggleFavorite(p.id)}
-                          className="absolute bottom-3 left-3 p-2 rounded-lg bg-black/70 backdrop-blur-md text-white hover:text-rose-500 transition-all cursor-pointer"
+                          className="absolute bottom-3 left-3 p-2 rounded-lg bg-zinc-950/70 backdrop-blur-md text-white hover:text-rose-500 transition-all cursor-pointer"
                         >
                           <Heart className={`w-3.5 h-3.5 ${isSaved ? 'fill-rose-500 text-rose-550' : 'text-white'}`} />
                         </button>
 
-                        <span className="absolute bottom-3 right-3 bg-black/70 backdrop-blur-md text-white font-mono text-[9px] px-2 py-0.5 rounded-md">Stock: {p.stock}</span>
+                        <span className="absolute bottom-3 right-3 bg-zinc-950/70 backdrop-blur-md text-white font-mono text-[9px] px-2 py-0.5 rounded-md">Stock: {p.stock}</span>
                       </div>
                       <div className="p-4 flex-1 flex flex-col justify-between space-y-4">
                         <div>
@@ -903,7 +773,7 @@ export default function ClientStore({
                             onClick={() => handleAddToCart(p)}
                             disabled={p.stock <= 0}
                             className={`w-full py-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer ${
-                              p.stock <= 0 ? 'bg-neutral-350  text-zinc-500 cursor-not-allowed' : 'bg-black hover:bg-black text-white dark:bg-white dark:text-black dark:hover:bg-zinc-200'
+                              p.stock <= 0 ? 'bg-neutral-350 dark:bg-zinc-800 text-zinc-500 cursor-not-allowed' : 'bg-amber-600 hover:bg-amber-550 text-white'
                             }`}
                           >
                             <ShoppingCart className="w-3.5 h-3.5" />
@@ -922,39 +792,34 @@ export default function ClientStore({
 
         {/* TAB 3: CATEGORIAS (Grid view collections requested by user) */}
         {activeStoreTab === 'CATEGORIAS' && (
-          <div className="space-y-12 pb-20">
-            <div className="gsap-hero text-center max-w-2xl mx-auto pt-8">
-              <span className="text-[10px] tracking-widest text-zinc-500 font-mono font-bold uppercase block mb-4">El Catálogo</span>
-              <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter mb-4">Colecciones Exclusivas</h2>
-              <p className="text-sm text-zinc-500 dark:text-zinc-400">Navega a través de nuestras curadurías estacionales de fibra andina premium. Cada pieza representa una fusión de herencia y diseño contemporáneo.</p>
+          <div className="space-y-6">
+            <div className="space-y-1">
+              <span className="text-[10px] tracking-widest text-amber-600 font-mono font-bold uppercase block">Línea Selecta</span>
+              <h3 className="text-xl font-extrabold font-sans">Nuestras Colecciones Andinas</h3>
+              <p className="text-xs text-neutral-500 dark:text-zinc-400">Selecciona una de nuestras categorías certificadas para ver los modelos de tejidos nobles disponibles.</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[
-                { name: 'Suéteres de Alpaca', desc: 'Abrigo puro y elegante para cualquier estación.', img: 'https://images.unsplash.com/photo-1549439602-43ebca2327af?auto=format&fit=crop&q=80&w=800' },
-                { name: 'Bufandas Bordadas', desc: 'Accesorios cálidos con detalles únicos.', img: 'https://images.unsplash.com/photo-1604644401890-0bd678c83788?auto=format&fit=crop&q=80&w=800' },
-                { name: 'Abrigos & Ponchos', desc: 'El máximo nivel de lujo andino.', img: 'https://images.unsplash.com/photo-1549439602-43ebca2327af?auto=format&fit=crop&q=80&w=800' },
-                { name: 'Accesorios', desc: 'Gorros, guantes y complementos de invierno.', img: 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80&w=800' },
-                { name: 'Edición Limitada', desc: 'Piezas de pasarela y colaboraciones.', img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=800' },
-              ].map((cat, index) => {
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {categories.map((cat, index) => {
                 const count = products.filter(p => p.status === 'ACTIVO' && p.category === cat.name).length;
                 return (
                   <div 
-                    key={index}
+                    key={cat.id}
                     onClick={() => {
                       setSelectedCategory(cat.name);
                       setActiveStoreTab('TIENDA');
                     }}
-                    className="gsap-hero relative aspect-[4/5] rounded-3xl overflow-hidden group cursor-pointer shadow-lg"
+                    className={`rounded-2xl p-6 border hover:border-amber-500/40 cursor-pointer shadow-sm group hover:-translate-y-1 transition-all duration-205 ${isDarkMode ? 'bg-zinc-900 border-zinc-800 hover:bg-zinc-850' : 'bg-white border-neutral-200'}`}
                   >
-                    <img src={cat.img} alt={cat.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-8">
-                      <span className="text-white/60 font-mono text-[10px] uppercase tracking-widest mb-2 block">{count} Productos</span>
-                      <h3 className="text-3xl font-black text-white uppercase tracking-tight mb-2">{cat.name}</h3>
-                      <p className="text-sm text-white/80 mb-6 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">{cat.desc}</p>
-                      <span className="inline-flex items-center gap-2 text-xs font-bold text-white uppercase tracking-widest bg-white/20 backdrop-blur-md px-6 py-3 rounded-full hover:bg-white hover:text-black transition-colors w-max">
-                        Explorar <ArrowRight className="w-4 h-4" />
-                      </span>
+                    <div className="flex justify-between items-start mb-4">
+                      <span className="text-3xl">🧶</span>
+                      <span className="text-[10px] font-mono text-amber-600 font-black tracking-widest uppercase bg-amber-500/10 px-2.5 py-1 rounded">AM-0{index+1}</span>
+                    </div>
+                    <h4 className="font-extrabold text-sm uppercase text-amber-550 group-hover:text-amber-500 mb-1">{cat.name}</h4>
+                    <p className="text-xs text-neutral-550 dark:text-zinc-400 leading-relaxed mb-4">{cat.description || 'Tejidos nobles confección andina con lanas puras de Cusco y Puno.'}</p>
+                    <div className="flex justify-between items-center text-xs font-bold text-neutral-450">
+                      <span>Ver {count} prendas</span>
+                      <ArrowRight className="w-4 h-4 text-amber-500 group-hover:translate-x-1.5 transition-transform" />
                     </div>
                   </div>
                 );
@@ -965,27 +830,27 @@ export default function ClientStore({
 
         {/* TAB 4: OFERTAS (Active promotions and coupons page requested by user) */}
         {activeStoreTab === 'OFERTAS' && (
-          <div className="space-y-12 pb-20">
+          <div className="space-y-8">
             
-            {/* Promo Banner */}
-            <div className="gsap-hero bg-black text-white p-8 md:p-16 rounded-3xl shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-zinc-800 rounded-full blur-3xl opacity-50 -translate-y-1/2 translate-x-1/2" />
-              <div className="space-y-4 relative z-10">
-                <span className="inline-block border border-white/30 text-white rounded-full px-4 py-1 text-[10px] font-mono uppercase font-black tracking-widest">Flash Sale Event</span>
-                <h3 className="text-4xl md:text-6xl font-black tracking-tighter uppercase leading-none">Rebajas de Temporada</h3>
-                <p className="text-sm text-white/80 max-w-lg">Descuentos exclusivos en piezas seleccionadas. Ofertas válidas por tiempo limitado hasta agotar existencias del inventario de transición.</p>
+            {/* Promo card grids */}
+            <div className="bg-gradient-to-r from-red-650 via-amber-600 to-amber-700 p-6 sm:p-10 rounded-3xl text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="space-y-2">
+                <span className="bg-white/20 border border-white/20 text-white rounded px-2.5 py-0.5 text-[10px] font-mono uppercase font-black tracking-wider">CYBER CUENTAS ANUALES</span>
+                <h3 className="text-2xl sm:text-3xl font-black tracking-tight leading-none">Descuentos Especiales y Cupones activos</h3>
+                <p className="text-xs text-white/90 max-w-md">Lanzamos pases de finanzas para que adquieras abrigos y mantas de Cusco con reducciones de liquidación inmediata.</p>
               </div>
 
               {/* Coupons display */}
-              <div className="flex flex-col gap-3 shrink-0 w-full md:w-auto relative z-10">
+              <div className="flex flex-col gap-2 shrink-0">
                 {coupons.filter(c => c.status === 'ACTIVO').map(c => (
-                  <div key={c.id} className="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20 flex items-center justify-between gap-8 text-xs font-mono">
+                  <div key={c.id} className="bg-white/10 backdrop-blur-xs p-3.5 rounded-xl border border-white/15 flex items-center gap-6 justify-between text-xs font-mono">
                     <div>
-                      <span className="block text-zinc-400 font-extrabold text-[9px] mb-1">CÓDIGO SECRETO</span>
-                      <span className="font-black text-white select-all text-sm tracking-widest bg-black px-3 py-1 rounded">{c.code}</span>
+                      <span className="block text-amber-300 font-extrabold text-[10px]">CÓDIGO DE CUPÓN</span>
+                      <span className="font-black text-white select-all bg-white/20 px-2.5 py-0.5 rounded text-sm tracking-wide">{c.code}</span>
                     </div>
                     <div className="text-right">
-                      <span className="block text-white font-sans text-xl font-black">-{c.value}{c.discountType === 'PORCENTAJE' ? '%' : ' PEN'}</span>
+                      <span className="block text-white font-serif font-black">-{c.value}{c.discountType === 'PORCENTAJE' ? '%' : ' PEN'}</span>
+                      <span className="text-[9px] text-white/60">En total e-commerce</span>
                     </div>
                   </div>
                 ))}
@@ -993,43 +858,38 @@ export default function ClientStore({
             </div>
 
             {/* List only offer products */}
-            <div className="gsap-hero space-y-8">
-              <div className="flex justify-between items-end border-b border-zinc-200 pb-4">
-                <h3 className="text-2xl font-black tracking-tight uppercase">Piezas en Rebaja</h3>
-                <span className="text-xs font-mono text-zinc-500">{offerProducts.length} Artículos</span>
-              </div>
+            <div className="space-y-6">
+              <h3 className="text-lg font-black tracking-tight border-b dark:border-zinc-800 pb-2">Prendas con precios de Oferta Directa:</h3>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {offerProducts.length === 0 ? (
-                  <div className="col-span-full p-20 text-center rounded-3xl border border-dashed border-zinc-300 dark:border-zinc-800">
-                    <span className="text-4xl block mb-4">🤫</span>
-                    <h4 className="text-xl font-black uppercase mb-2">No hay ofertas</h4>
-                    <p className="text-sm text-zinc-500">Nuestros artesanos están preparando la próxima temporada de descuentos.</p>
+                  <div className="col-span-full p-12 text-center text-xs text-zinc-500">
+                    No hay promociones individuales registradas en este instante. ¡Regresa pronto!
                   </div>
                 ) : (
                   offerProducts.map(p => {
                     const discountPercent = Math.round(((p.salePrice - p.offerPrice) / p.salePrice) * 100);
                     return (
-                      <div key={p.id} className={`gsap-card rounded-2xl border overflow-hidden transition-all duration-200 group flex flex-col justify-between ${isDarkMode ? 'bg-zinc-900/40 border-zinc-800 hover:border-zinc-500/30' : 'bg-white border-neutral-100 hover:shadow-lg'}`}>
-                        <div className="relative aspect-[3/4] overflow-hidden bg-zinc-100 dark:bg-zinc-850">
-                          <img src={p.images?.[0] || 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80&w=400'} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" referrerPolicy="no-referrer" />
-                          <span className="absolute top-4 left-4 bg-red-600 text-white text-[10px] font-black px-3 py-1 rounded-sm uppercase tracking-widest">-{discountPercent}% OFF</span>
+                      <div key={p.id} className={`rounded-2xl border overflow-hidden transition-all duration-200 group flex flex-col justify-between ${isDarkMode ? 'bg-zinc-900/60 border-zinc-800 hover:border-amber-600/30' : 'bg-white border-neutral-100 hover:shadow-lg'}`}>
+                        <div className="relative aspect-square overflow-hidden bg-zinc-100 dark:bg-zinc-850">
+                          <img src={p.images[0]} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" referrerPolicy="no-referrer" />
+                          <span className="absolute top-3 left-3 bg-red-600 text-white text-[9px] font-black px-2.5 py-1 rounded-md uppercase">Ahórrate {discountPercent}%</span>
                         </div>
-                        <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
+                        <div className="p-4 flex-1 flex flex-col justify-between space-y-4">
                           <div>
-                            <span className="text-[10px] text-zinc-400 block font-mono uppercase tracking-widest">{p.category}</span>
-                            <h4 className="font-extrabold text-sm tracking-tight line-clamp-2 mt-1">{p.name}</h4>
+                            <span className="text-[9px] text-zinc-400 block font-mono">{p.category}</span>
+                            <h4 className="font-extrabold text-xs tracking-tight line-clamp-2 mt-1">{p.name}</h4>
                           </div>
                           <div>
-                            <div className="flex items-center gap-3 mb-4">
-                              <span className="font-mono text-lg font-black text-red-600">S/. {p.offerPrice.toFixed(2)}</span>
-                              <span className="font-mono text-xs text-neutral-400 line-through">S/. {p.salePrice.toFixed(2)}</span>
+                            <div className="flex items-baseline gap-2 mb-3">
+                              <span className="font-mono text-sm font-black text-red-600">S/. {p.offerPrice.toFixed(2)}</span>
+                              <span className="font-mono text-[10px] text-neutral-400 line-through">S/. {p.salePrice.toFixed(2)}</span>
                             </div>
                             <button
                               onClick={() => handleAddToCart(p)}
-                              className="w-full bg-black hover:bg-neutral-800 dark:bg-white dark:hover:bg-zinc-200 text-white dark:text-black font-bold text-xs py-3 rounded-xl flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                              className="w-full bg-amber-600 hover:bg-amber-550 text-white font-bold text-xs py-2 rounded-xl flex items-center justify-center gap-2"
                             >
-                              <ShoppingCart className="w-4 h-4" /> Agregar a la Bolsa
+                              <ShoppingCart className="w-3.5 h-3.5" /> Agregar S/. {p.offerPrice.toFixed(2)}
                             </button>
                           </div>
                         </div>
@@ -1045,50 +905,21 @@ export default function ClientStore({
 
         {/* TAB 5: NOSOTROS (Story requested by user) */}
         {activeStoreTab === 'NOSOTROS' && (
-          <div className="space-y-12 pb-20 max-w-5xl mx-auto">
+          <div className="max-w-3xl mx-auto space-y-8 py-4">
             
-            <div className="gsap-hero relative aspect-[21/9] rounded-3xl overflow-hidden shadow-2xl mb-12">
-              <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=1200" alt="Andesmoda Alpaca Herencia" className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                <h2 className="text-4xl md:text-6xl font-black text-white tracking-widest uppercase">Nuestra Historia</h2>
-              </div>
+            <div className="aspect-[21/9] rounded-3xl overflow-hidden shadow-md">
+              <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=800" alt="Andesmoda Alpaca" className="w-full h-full object-cover" />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              <div className="gsap-hero space-y-6 text-sm sm:text-base leading-relaxed font-sans">
-                <h3 className={`text-3xl font-black tracking-tight uppercase mb-4 ${isDarkMode ? 'text-white' : 'text-black'}`}>Confección Andina y Herencia</h3>
-                <p className={isDarkMode ? 'text-zinc-300' : 'text-zinc-600'}>La historia de Andes Moda se fundamenta en la preservación del hilado autóctono. Nacimos de la profunda necesidad de fusionar la exquisitez milenaria de la fibra de Alpaca Suri y Huacaya de las alturas de Cusco, con el diseño estructural contemporáneo.</p>
-                <p className={isDarkMode ? 'text-zinc-300' : 'text-zinc-600'}>Durante generaciones, el arte del tejido ha sido la voz de los Andes. Hoy, llevamos esa voz al mundo bajo rigurosos estándares de trazabilidad y manufactura de lujo.</p>
+            <div className="space-y-4 text-xs sm:text-sm leading-relaxed font-sans">
+              <h2 className="text-2xl font-black tracking-tight text-amber-500">Confección Andina y Ética</h2>
+              <p>Nuestra historia se remonta a la preservación del hilado autóctono. Andesmoda nace como una respuesta para fusionar la exquisitez de la fibra de Alpaca de las alturas de Cusco con los sistemas modernos de control logístico empresarial.</p>
+              <p>Trabajamos de forma directa y ética con más de 120 familias tejedoras en los andes peruanos. Cada abrigo, chompa o textil que adquieres ayuda a sustentar cooperativas andinas artesanales, garantizando el precio justo de su trabajo.</p>
+              
+              <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 my-6">
+                <h4 className="font-black text-amber-605 dark:text-amber-400 mb-1 flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-amber-500" /> Sostenibilidad Certificada</h4>
+                <p className="text-xs">Andesmoda cuenta con el sello nacional de autenticidad noble para vicuña y alpaca real, asegurando procesos libres de crueldad animal.</p>
               </div>
-              <div className="gsap-hero aspect-square rounded-3xl overflow-hidden shadow-xl">
-                <img src="https://images.unsplash.com/photo-1604644401890-0bd678c83788?auto=format&fit=crop&q=80&w=800" alt="Detalle de tejido" className="w-full h-full object-cover" />
-              </div>
-            </div>
-
-            <div className={`gsap-hero rounded-3xl p-8 md:p-16 my-12 ${isDarkMode ? 'bg-zinc-900' : 'bg-zinc-100'}`}>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div className="space-y-4">
-                  <div className={`w-12 h-12 rounded-full flex items-center justify-center font-black text-xl ${isDarkMode ? 'bg-white text-black' : 'bg-black text-white'}`}>1</div>
-                  <h4 className="text-xl font-black uppercase">Esquila Ética</h4>
-                  <p className={`text-sm ${isDarkMode ? 'text-zinc-400' : 'text-zinc-500'}`}>Procesos certificados que aseguran el bienestar animal. Nuestra esquila se realiza con técnicas ancestrales indoloras.</p>
-                </div>
-                <div className="space-y-4">
-                  <div className={`w-12 h-12 rounded-full flex items-center justify-center font-black text-xl ${isDarkMode ? 'bg-white text-black' : 'bg-black text-white'}`}>2</div>
-                  <h4 className="text-xl font-black uppercase">Comercio Justo</h4>
-                  <p className={`text-sm ${isDarkMode ? 'text-zinc-400' : 'text-zinc-500'}`}>Trabajamos sin intermediarios con más de 120 familias tejedoras, garantizando precios por encima del mercado internacional.</p>
-                </div>
-                <div className="space-y-4">
-                  <div className={`w-12 h-12 rounded-full flex items-center justify-center font-black text-xl ${isDarkMode ? 'bg-white text-black' : 'bg-black text-white'}`}>3</div>
-                  <h4 className="text-xl font-black uppercase">Cero Huella</h4>
-                  <p className={`text-sm ${isDarkMode ? 'text-zinc-400' : 'text-zinc-500'}`}>Los procesos de teñido utilizan pigmentos botánicos y arcillas naturales del Valle Sagrado, sin químicos contaminantes.</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="gsap-hero text-center max-w-2xl mx-auto space-y-6">
-              <ShieldCheck className="w-16 h-16 mx-auto text-green-600" />
-              <h3 className="text-2xl font-black uppercase tracking-tight">Sostenibilidad Certificada</h3>
-              <p className={`text-sm ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}`}>Andes Moda cuenta con el sello nacional de autenticidad noble para vicuña y alpaca real emitido por el Ministerio del Ambiente del Perú, asegurando procesos 100% libres de crueldad animal.</p>
             </div>
 
           </div>
@@ -1096,108 +927,79 @@ export default function ClientStore({
 
         {/* TAB 6: CONTACTO (Store locations and submit contact message requested by user) */}
         {activeStoreTab === 'CONTACTO' && (
-          <div className="max-w-6xl mx-auto py-8">
-            <div className="gsap-hero text-center mb-12">
-              <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter mb-4">Servicio al Cliente</h2>
-              <p className="text-sm text-zinc-500 max-w-xl mx-auto">Estamos aquí para asesorarte en tus compras, resolver dudas sobre tallajes, o procesar tus solicitudes corporativas.</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 py-4">
+            
+            <div className="space-y-6">
+              <div className="space-y-1">
+                <h3 className="text-xl font-black">Centros de Distribución & Outlets</h3>
+                <p className="text-xs text-neutral-500 dark:text-zinc-400">Puedes coordinar retiros presenciales en nuestras sedes físicas centrales de Cusco y Lima.</p>
+              </div>
+
+              {[
+                { title: 'Sede Principal Cusco', address: 'Portal de Harinas 142, Plaza de Armas, Cusco', phone: '+51 (084) 224422', email: 'cusco@andesmoda.pe' },
+                { title: 'Sede Comercial Lima', address: 'Av. Camino Real 1234, Of. 402, San Isidro, Lima', phone: '+51 (01) 450123', email: 'lima@andesmoda.pe' },
+              ].map((loc, idx) => (
+                <div key={idx} className={`p-5 rounded-2xl border ${isDarkMode ? 'bg-zinc-900/60 border-zinc-800' : 'bg-white border-neutral-200'} space-y-1`}>
+                  <h4 className="font-black text-sm text-amber-505 dark:text-amber-400">{loc.title}</h4>
+                  <p className="text-xs flex items-center gap-2 text-zinc-550 dark:text-zinc-300 py-1"><MapPin className="w-3.5 h-3.5 text-amber-600 shrink-0" /> {loc.address}</p>
+                  <p className="text-xs flex items-center gap-2 text-zinc-550 dark:text-zinc-300 py-1"><Phone className="w-3.5 h-3.5 text-amber-600 shrink-0" /> {loc.phone}</p>
+                  <p className="text-xs flex items-center gap-2 text-zinc-555 dark:text-zinc-300 py-1"><Mail className="w-3.5 h-3.5 text-amber-600 shrink-0" /> {loc.email}</p>
+                </div>
+              ))}
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
-              
-              <div className="gsap-hero lg:col-span-2 space-y-8">
-                <div>
-                  <h3 className="text-2xl font-black uppercase tracking-tight mb-6">Nuestras Boutiques</h3>
-                  
-                  <div className="space-y-6">
-                    {[
-                      { title: 'Sede Histórica Cusco', address: 'Portal de Panes 142, Plaza de Armas, Cusco, Perú', phone: '+51 (084) 224422', email: 'cusco@andesmoda.pe' },
-                      { title: 'Showroom Lima', address: 'Av. El Bosque 234, San Isidro, Lima, Perú', phone: '+51 (01) 450123', email: 'lima@andesmoda.pe' },
-                      { title: 'Ventas Corporativas', address: 'B2B & Alianzas Internacionales', phone: '+51 987654321', email: 'wholesale@andesmoda.pe' }
-                    ].map((loc, idx) => (
-                      <div key={idx} className={`p-6 rounded-3xl border shadow-sm hover:shadow-md transition-shadow ${isDarkMode ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-zinc-200'}`}>
-                        <h4 className="font-black text-base uppercase tracking-wider mb-4">{loc.title}</h4>
-                        <div className="space-y-3">
-                          <p className={`text-sm flex items-start gap-3 ${isDarkMode ? 'text-zinc-300' : 'text-zinc-600'}`}>
-                            <MapPin className={`w-4 h-4 mt-0.5 shrink-0 ${isDarkMode ? 'text-amber-500' : 'text-amber-600'}`} /> {loc.address}
-                          </p>
-                          <p className={`text-sm flex items-center gap-3 ${isDarkMode ? 'text-zinc-300' : 'text-zinc-600'}`}>
-                            <Phone className={`w-4 h-4 shrink-0 ${isDarkMode ? 'text-amber-500' : 'text-amber-600'}`} /> {loc.phone}
-                          </p>
-                          <p className={`text-sm flex items-center gap-3 ${isDarkMode ? 'text-zinc-300' : 'text-zinc-600'}`}>
-                            <Mail className={`w-4 h-4 shrink-0 ${isDarkMode ? 'text-amber-500' : 'text-amber-600'}`} /> {loc.email}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
+            {/* Direct contact formulario */}
+            <div className={`p-6 rounded-2xl border ${isDarkMode ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-neutral-200'} shadow-sm`}>
+              <h3 className="text-md font-bold text-amber-500 mb-4 font-sans uppercase tracking-tight">Formulario de Contacto</h3>
+              {contactSuccess ? (
+                <div className="p-4 bg-emerald-100 dark:bg-emerald-950/25 border border-emerald-350 dark:border-emerald-800/20 text-emerald-800 dark:text-emerald-400 rounded-xl text-xs font-semibold">
+                  {contactSuccess}
+                </div>
+              ) : (
+                <form onSubmit={handleContactSubmit} className="space-y-4 text-xs font-sans">
+                  <div>
+                    <label className="block text-zinc-400 font-bold mb-1">Nombre Completo:</label>
+                    <input 
+                      type="text" 
+                      required
+                      value={contactName}
+                      onChange={(e) => setContactName(e.target.value)}
+                      placeholder="Tu nombre completo"
+                      className={`w-full p-2.5 rounded-lg border outline-none ${isDarkMode ? 'bg-zinc-800 border-zinc-700 focus:border-amber-500' : 'bg-neutral-50 border-neutral-200 focus:border-amber-600'}`}
+                    />
                   </div>
-                </div>
-              </div>
-
-              <div className="gsap-hero lg:col-span-3">
-                <div className={`p-8 md:p-12 rounded-3xl border h-full ${isDarkMode ? 'bg-zinc-900 border-zinc-800' : 'bg-zinc-50 border-zinc-200'}`}>
-                  <h3 className="text-2xl font-black uppercase tracking-tight mb-2">Envíanos un Mensaje</h3>
-                  <p className={`text-sm mb-8 ${isDarkMode ? 'text-zinc-400' : 'text-zinc-500'}`}>Nuestro equipo de asesores de imagen te responderá en menos de 24 horas laborables.</p>
-                  
-                  {contactSuccess ? (
-                    <div className="p-6 bg-black text-white rounded-2xl text-sm font-bold text-center flex flex-col items-center justify-center h-64">
-                      <span className="text-4xl mb-4">✨</span>
-                      {contactSuccess}
-                    </div>
-                  ) : (
-                    <form onSubmit={handleContactSubmit} className="space-y-6">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="space-y-2">
-                          <label className={`block text-xs font-black uppercase tracking-widest ${isDarkMode ? 'text-zinc-300' : 'text-zinc-700'}`}>Nombre Completo</label>
-                          <input 
-                            type="text" 
-                            required
-                            value={contactName}
-                            onChange={(e) => setContactName(e.target.value)}
-                            className={`w-full p-4 text-sm rounded-xl border outline-none transition-colors ${isDarkMode ? 'bg-zinc-800 border-zinc-700 text-white placeholder-zinc-500 focus:border-amber-500' : 'bg-white border-zinc-300 text-zinc-900 focus:border-black'}`}
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <label className={`block text-xs font-black uppercase tracking-widest ${isDarkMode ? 'text-zinc-300' : 'text-zinc-700'}`}>Correo Electrónico</label>
-                          <input 
-                            type="email" 
-                            required
-                            value={contactEmail}
-                            onChange={(e) => setContactEmail(e.target.value)}
-                            className={`w-full p-4 text-sm rounded-xl border outline-none transition-colors ${isDarkMode ? 'bg-zinc-800 border-zinc-700 text-white placeholder-zinc-500 focus:border-amber-500' : 'bg-white border-zinc-300 text-zinc-900 focus:border-black'}`}
-                          />
-                        </div>
-                      </div>
-                      <div className="space-y-2">
-                        <label className={`block text-xs font-black uppercase tracking-widest ${isDarkMode ? 'text-zinc-300' : 'text-zinc-700'}`}>Asunto</label>
-                        <select className={`w-full p-4 text-sm rounded-xl border outline-none transition-colors appearance-none ${isDarkMode ? 'bg-zinc-800 border-zinc-700 text-white focus:border-amber-500' : 'bg-white border-zinc-300 text-zinc-900 focus:border-black'}`}>
-                          <option>Consulta sobre un Pedido</option>
-                          <option>Ventas Corporativas / Mayoristas</option>
-                          <option>Asesoría de Tallas</option>
-                          <option>Otras Consultas</option>
-                        </select>
-                      </div>
-                      <div className="space-y-2">
-                        <label className={`block text-xs font-black uppercase tracking-widest ${isDarkMode ? 'text-zinc-300' : 'text-zinc-700'}`}>Mensaje</label>
-                        <textarea 
-                          required
-                          rows={6}
-                          value={contactMsg}
-                          onChange={(e) => setContactMsg(e.target.value)}
-                          className={`w-full p-4 text-sm rounded-xl border outline-none transition-colors resize-none ${isDarkMode ? 'bg-zinc-800 border-zinc-700 text-white placeholder-zinc-500 focus:border-amber-500' : 'bg-white border-zinc-300 text-zinc-900 focus:border-black'}`}
-                        />
-                      </div>
-                      <button 
-                        type="submit"
-                        className="w-full bg-black hover:bg-neutral-800 text-white font-black uppercase tracking-widest py-4 rounded-xl transition-all hover:-translate-y-1"
-                      >
-                        Enviar Solicitud
-                      </button>
-                    </form>
-                  )}
-                </div>
-              </div>
-
+                  <div>
+                    <label className="block text-zinc-400 font-bold mb-1">Correo Electrónico:</label>
+                    <input 
+                      type="email" 
+                      required
+                      value={contactEmail}
+                      onChange={(e) => setContactEmail(e.target.value)}
+                      placeholder="ejemplo@andesmoda.pe"
+                      className={`w-full p-2.5 rounded-lg border outline-none ${isDarkMode ? 'bg-zinc-800 border-zinc-700 focus:border-amber-500' : 'bg-neutral-50 border-neutral-200 focus:border-amber-600'}`}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-zinc-400 font-bold mb-1">Mensaje / Consulta Especializada:</label>
+                    <textarea 
+                      required
+                      rows={4}
+                      value={contactMsg}
+                      onChange={(e) => setContactMsg(e.target.value)}
+                      placeholder="Escribe tu consulta sobre hilados, tallajes o despachos corporativos."
+                      className={`w-full p-2.5 rounded-lg border outline-none ${isDarkMode ? 'bg-zinc-800 border-zinc-700 focus:border-amber-500' : 'bg-neutral-50 border-neutral-200 focus:border-amber-600'}`}
+                    />
+                  </div>
+                  <button 
+                    type="submit"
+                    className="w-full bg-amber-600 hover:bg-amber-550 text-white font-bold py-2.5 rounded-lg tracking-wider"
+                  >
+                    Enviar Mensaje Cooperativo
+                  </button>
+                </form>
+              )}
             </div>
+
           </div>
         )}
 
@@ -1308,7 +1110,7 @@ export default function ClientStore({
                             return (
                               <div key={st} className="flex flex-col items-center">
                                 <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-[11px] font-black ${
-                                  isPassed ? 'bg-green-600 text-white' : 'bg-neutral-300  text-neutral-510 '
+                                  isPassed ? 'bg-green-600 text-white' : 'bg-neutral-300 dark:bg-zinc-800 text-neutral-510 dark:text-zinc-500'
                                 } ${isCurrent ? 'ring-4 ring-amber-500/40 scale-105' : ''}`}>
                                   {isPassed && !isCurrent ? '✓' : i + 1}
                                 </div>
@@ -1343,12 +1145,12 @@ export default function ClientStore({
 
                       {/* Logistics details requested by user */}
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                        <div className="p-4 rounded-xl bg-zinc-200/50 /30 space-y-1">
+                        <div className="p-4 rounded-xl bg-zinc-200/50 dark:bg-zinc-800/30 space-y-1">
                           <span className="text-[10px] text-zinc-400 font-bold block uppercase">LOGÍSTICA COURIER</span>
                           <p><strong>Courier / Empresa:</strong> {selectedTrackOrder.shippingCarrier || 'Envío Interno Andesmoda'}</p>
                           <p><strong>Número Tracking:</strong> {selectedTrackOrder.shippingMethodId ? `TRK-${selectedTrackOrder.id.slice(0, 6).toUpperCase()}` : 'No disponible aún'}</p>
                         </div>
-                        <div className="p-4 rounded-xl bg-zinc-200/50 /30 space-y-1">
+                        <div className="p-4 rounded-xl bg-zinc-200/50 dark:bg-zinc-800/30 space-y-1">
                           <span className="text-[10px] text-zinc-400 font-bold block uppercase">DATOS DE ENTREGA</span>
                           <p><strong>Dirección:</strong> {actualUser.address || 'Recojo en oficina principal'}</p>
                           <p><strong>Total Orden PEN:</strong> S/. {selectedTrackOrder.total.toFixed(2)}</p>
@@ -1571,7 +1373,7 @@ export default function ClientStore({
                         <img 
                           src={item.product.images[0]} 
                           alt={item.product.name} 
-                          className="w-16 h-16 object-cover rounded-lg bg-zinc-100 "
+                          className="w-16 h-16 object-cover rounded-lg bg-zinc-100 dark:bg-zinc-800"
                           referrerPolicy="no-referrer"
                         />
                         <div className="flex-1 flex flex-col justify-between">
@@ -1582,7 +1384,7 @@ export default function ClientStore({
                           </div>
                           
                           <div className="flex items-center justify-between mt-2">
-                            <div className="flex items-center gap-2 border border-neutral-200  rounded-lg p-0.5">
+                            <div className="flex items-center gap-2 border border-neutral-200 dark:border-zinc-700 rounded-lg p-0.5">
                               <button 
                                 onClick={() => updateCartQty(item.product.id, -1)}
                                 className="p-1 rounded hover:bg-neutral-100 dark:hover:bg-zinc-800"
@@ -1682,7 +1484,7 @@ export default function ClientStore({
                             required
                             value={checkoutDni}
                             onChange={(e) => setCheckoutDni(e.target.value)}
-                            className="p-2 border text-[11px] rounded-lg outline-none bg-neutral-50  "
+                            className="p-2 border text-[11px] rounded-lg outline-none bg-neutral-50 dark:bg-zinc-800 dark:border-zinc-700"
                           />
                           <input 
                             type="text" 
@@ -1690,7 +1492,7 @@ export default function ClientStore({
                             required
                             value={checkoutName}
                             onChange={(e) => setCheckoutName(e.target.value)}
-                            className="p-2 border text-[11px] rounded-lg outline-none bg-neutral-50  "
+                            className="p-2 border text-[11px] rounded-lg outline-none bg-neutral-50 dark:bg-zinc-800 dark:border-zinc-700"
                           />
                         </div>
 
@@ -1699,7 +1501,7 @@ export default function ClientStore({
                           placeholder="Celular / WhatsApp" 
                           value={checkoutPhone}
                           onChange={(e) => setCheckoutPhone(e.target.value)}
-                          className="w-full p-2 border text-[11px] rounded-lg outline-none bg-neutral-50  "
+                          className="w-full p-2 border text-[11px] rounded-lg outline-none bg-neutral-50 dark:bg-zinc-800 dark:border-zinc-700"
                         />
 
                         <input 
@@ -1708,7 +1510,7 @@ export default function ClientStore({
                           required
                           value={checkoutAddress}
                           onChange={(e) => setCheckoutAddress(e.target.value)}
-                          className="w-full p-2 border text-[11px] rounded-lg outline-none bg-neutral-50  "
+                          className="w-full p-2 border text-[11px] rounded-lg outline-none bg-neutral-50 dark:bg-zinc-800 dark:border-zinc-700"
                         />
 
                         <div className="space-y-1">
@@ -1717,7 +1519,7 @@ export default function ClientStore({
                             required
                             value={selectedShippingId}
                             onChange={(e) => setSelectedShippingId(e.target.value)}
-                            className="w-full p-1.5 border text-[11px] rounded-lg outline-none bg-neutral-50  "
+                            className="w-full p-1.5 border text-[11px] rounded-lg outline-none bg-neutral-50 dark:bg-zinc-800 dark:border-zinc-700"
                           >
                             {shippingMethods.filter(sm => sm.status === 'ACTIVO').map(sm => (
                               <option key={sm.id} value={sm.id}>
@@ -1732,7 +1534,7 @@ export default function ClientStore({
                           <select
                             value={checkoutPayment}
                             onChange={(e) => setCheckoutPayment(e.target.value as any)}
-                            className="w-full p-1.5 border text-[11px] rounded-lg outline-none bg-neutral-50  "
+                            className="w-full p-1.5 border text-[11px] rounded-lg outline-none bg-neutral-50 dark:bg-zinc-800 dark:border-zinc-700"
                           >
                             <option value="TARJETA">Tarjeta Visa / Mastercard Crédito o Débito</option>
                             <option value="EFECTIVO">Pago en Efectivo contra entrega</option>
@@ -1752,7 +1554,7 @@ export default function ClientStore({
                           <button
                             type="button"
                             onClick={() => setIsCheckoutOpen(false)}
-                            className="w-1/3 border border-neutral-300  text-xs py-2 rounded-lg"
+                            className="w-1/3 border border-neutral-300 dark:border-zinc-700 text-xs py-2 rounded-lg"
                           >
                             Atrás
                           </button>
@@ -1823,7 +1625,7 @@ export default function ClientStore({
                     placeholder="correo@ejemplo.com"
                     value={loginEmail}
                     onChange={(e) => setLoginEmail(e.target.value)}
-                    className="w-full p-2.5 rounded-lg border outline-none bg-neutral-50  "
+                    className="w-full p-2.5 rounded-lg border outline-none bg-neutral-50 dark:bg-zinc-800 dark:border-zinc-700"
                   />
                 </div>
                 <div>
@@ -1834,7 +1636,7 @@ export default function ClientStore({
                     placeholder="••••••••"
                     value={loginPassword}
                     onChange={(e) => setLoginPassword(e.target.value)}
-                    className="w-full p-2.5 rounded-lg border outline-none bg-neutral-50  "
+                    className="w-full p-2.5 rounded-lg border outline-none bg-neutral-50 dark:bg-zinc-800 dark:border-zinc-700"
                   />
                 </div>
                 <button
@@ -1943,7 +1745,7 @@ export default function ClientStore({
                       placeholder="Juan Pérez"
                       value={regName}
                       onChange={(e) => setRegName(e.target.value)}
-                      className="w-full p-2 border rounded-lg bg-neutral-50  "
+                      className="w-full p-2 border rounded-lg bg-neutral-50 dark:bg-zinc-800 dark:border-zinc-700"
                     />
                   </div>
                   <div>
@@ -1954,7 +1756,7 @@ export default function ClientStore({
                       placeholder="correo@ejemplo.com"
                       value={regEmail}
                       onChange={(e) => setRegEmail(e.target.value)}
-                      className="w-full p-2 border rounded-lg bg-neutral-50  "
+                      className="w-full p-2 border rounded-lg bg-neutral-50 dark:bg-zinc-800 dark:border-zinc-700"
                     />
                   </div>
                 </div>
@@ -1968,7 +1770,7 @@ export default function ClientStore({
                       placeholder="Mín. 6 caracteres"
                       value={regPassword}
                       onChange={(e) => setRegPassword(e.target.value)}
-                      className="w-full p-2 border rounded-lg bg-neutral-50  "
+                      className="w-full p-2 border rounded-lg bg-neutral-50 dark:bg-zinc-800 dark:border-zinc-700"
                     />
                   </div>
                   <div>
@@ -1978,7 +1780,7 @@ export default function ClientStore({
                       placeholder="8 dígitos"
                       value={regDni}
                       onChange={(e) => setRegDni(e.target.value)}
-                      className="w-full p-2 border rounded-lg bg-neutral-50  "
+                      className="w-full p-2 border rounded-lg bg-neutral-50 dark:bg-zinc-800 dark:border-zinc-700"
                     />
                   </div>
                 </div>
@@ -1991,7 +1793,7 @@ export default function ClientStore({
                       placeholder="ej: 987654321"
                       value={regPhone}
                       onChange={(e) => setRegPhone(e.target.value)}
-                      className="w-full p-2 border rounded-lg bg-neutral-50  "
+                      className="w-full p-2 border rounded-lg bg-neutral-50 dark:bg-zinc-800 dark:border-zinc-700"
                     />
                   </div>
                   <div>
@@ -2001,7 +1803,7 @@ export default function ClientStore({
                       placeholder="Calle, Distrito, Provincia"
                       value={regAddress}
                       onChange={(e) => setRegAddress(e.target.value)}
-                      className="w-full p-2 border rounded-lg bg-neutral-50  "
+                      className="w-full p-2 border rounded-lg bg-neutral-50 dark:bg-zinc-800 dark:border-zinc-700"
                     />
                   </div>
                 </div>

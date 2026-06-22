@@ -3,6 +3,7 @@ import express from "express";
 import fs from "fs";
 import path from "path";
 import { GoogleGenAI } from "@google/genai";
+import { createServer as createViteServer } from "vite";
 import { createClient } from "@supabase/supabase-js";
 
 // Connection Validation and Sanitization Helpers
@@ -46,12 +47,12 @@ function sanitizeSupabaseEnv(val: string | undefined, isUrl = false): string {
 
 const dbUrlAndKey = {
   get url() {
-    const rawUrl = process.env.SUPABASE_URL || "https://hvbqbvorrroyrvlchmvb.supabase.co";
-    return sanitizeSupabaseEnv(rawUrl, true) || "https://hvbqbvorrroyrvlchmvb.supabase.co";
+    const rawUrl = process.env.SUPABASE_URL || "https://jfkfmvbmvhneslrqgcql.supabase.co";
+    return sanitizeSupabaseEnv(rawUrl, true) || "https://jfkfmvbmvhneslrqgcql.supabase.co";
   },
   get key() {
-    const rawKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh2YnFidm9ycnJveXJ2bGNobXZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwOTA4MjAsImV4cCI6MjA5NzY2NjgyMH0.PUJmwam12nMQgBo8jg_lp_pddaf351Igd8I4PAamfOQ";
-    return sanitizeSupabaseEnv(rawKey, false) || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh2YnFidm9ycnJveXJ2bGNobXZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwOTA4MjAsImV4cCI6MjA5NzY2NjgyMH0.PUJmwam12nMQgBo8jg_lp_pddaf351Igd8I4PAamfOQ";
+    const rawKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impma2ZtdmJtdmhuZXNscnFnY3FsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwNTM4ODQsImV4cCI6MjA5NzYyOTg4NH0.Usxt7wkGPJnT1hiMoaKVf1sYcIoq-ibszIhD8dIh94Y";
+    return sanitizeSupabaseEnv(rawKey, false) || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impma2ZtdmJtdmhuZXNscnFnY3FsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwNTM4ODQsImV4cCI6MjA5NzYyOTg4NH0.Usxt7wkGPJnT1hiMoaKVf1sYcIoq-ibszIhD8dIh94Y";
   }
 };
 
@@ -77,8 +78,8 @@ const supabase = new Proxy({} as any, {
 });
 
 function useSupabase(): boolean {
-  const envUrl = process.env.SUPABASE_URL || "https://hvbqbvorrroyrvlchmvb.supabase.co";
-  const envKey = process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh2YnFidm9ycnJveXJ2bGNobXZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwOTA4MjAsImV4cCI6MjA5NzY2NjgyMH0.PUJmwam12nMQgBo8jg_lp_pddaf351Igd8I4PAamfOQ";
+  const envUrl = process.env.SUPABASE_URL;
+  const envKey = process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!envUrl || !envKey) return false;
   
   const sanitizedUrl = sanitizeSupabaseEnv(envUrl, true);
@@ -380,7 +381,8 @@ async function syncAndGetDB() {
       status: u.status === "ACTIVO" ? "ACTIVO" : "BLOQUEADO",
       dni: u.dni || "",
       phone: u.phone || "",
-      address: u.address || ""
+      address: u.address || "",
+      password: u.password_hash || u.password || ""
     }));
 
     const mappedAuditLogs = auditLogsSource.map((a: any) => ({
@@ -483,7 +485,8 @@ app.post("/api/users", async (req, res) => {
     status: req.body.status || "ACTIVO",
     dni: req.body.dni,
     phone: req.body.phone,
-    address: req.body.address
+    address: req.body.address,
+    password: req.body.password || req.body.password_hash || ""
   };
 
   if (useSupabase()) {
@@ -496,7 +499,8 @@ app.post("/api/users", async (req, res) => {
         status: newUser.status,
         dni: newUser.dni || null,
         phone: newUser.phone || null,
-        address: newUser.address || null
+        address: newUser.address || null,
+        password_hash: newUser.password || null
       });
       if (error) {
         logSupabaseError("Error creating user in Supabase", error);
@@ -534,7 +538,8 @@ app.put("/api/users/:id", async (req, res) => {
     status: req.body.status ?? db.users[index].status,
     dni: req.body.dni ?? db.users[index].dni,
     phone: req.body.phone ?? db.users[index].phone,
-    address: req.body.address ?? db.users[index].address
+    address: req.body.address ?? db.users[index].address,
+    password: req.body.password ?? db.users[index].password
   };
 
   if (useSupabase()) {
@@ -546,7 +551,8 @@ app.put("/api/users/:id", async (req, res) => {
         status: updatedUser.status,
         dni: updatedUser.dni || null,
         phone: updatedUser.phone || null,
-        address: updatedUser.address || null
+        address: updatedUser.address || null,
+        password_hash: updatedUser.password || null
       }).eq("id", req.params.id);
       if (error) {
         logSupabaseError("Error updating user in Supabase", error);
@@ -1114,26 +1120,28 @@ app.post("/api/customers", async (req, res) => {
 
   const fullName = `${newCustomer.name} ${newCustomer.lastName}`.trim();
 
-  try {
-    const { error } = await supabase.from("customers").insert({
-      id: newCustomer.id,
-      name: fullName,
-      dni: newCustomer.dni || null,
-      email: newCustomer.email || null,
-      phone: newCustomer.phone || null,
-      address: newCustomer.address || null,
-      total_spent: 0,
-      order_count: 0
-    });
-    if (error) {
-      logSupabaseError("Error creating customer in Supabase", error);
-      res.status(500).json({ error: "No se puede guardar localmente. Supabase devolvió un error: " + error.message });
+  if (useSupabase()) {
+    try {
+      const { error } = await supabase.from("customers").insert({
+        id: newCustomer.id,
+        name: fullName,
+        dni: newCustomer.dni || null,
+        email: newCustomer.email || null,
+        phone: newCustomer.phone || null,
+        address: newCustomer.address || null,
+        total_spent: 0,
+        order_count: 0
+      });
+      if (error) {
+        logSupabaseError("Error creating customer in Supabase", error);
+        res.status(500).json({ error: "No se puede guardar localmente. Supabase devolvió un error: " + error.message });
+        return;
+      }
+    } catch (err: any) {
+      console.error("Exception creating customer:", err);
+      res.status(500).json({ error: "Fallo de conexión crítico con Supabase: " + err.message });
       return;
     }
-  } catch (err: any) {
-    console.error("Exception creating customer:", err);
-    res.status(500).json({ error: "Fallo de conexión crítico con Supabase: " + err.message });
-    return;
   }
 
   db.customers.push(newCustomer);
@@ -1165,23 +1173,25 @@ app.put("/api/customers/:id", async (req, res) => {
 
   const fullName = `${updated.name} ${updated.lastName}`.trim();
 
-  try {
-    const { error } = await supabase.from("customers").update({
-      name: fullName,
-      dni: updated.dni || null,
-      email: updated.email || null,
-      phone: updated.phone || null,
-      address: updated.address || null
-    }).eq("id", req.params.id);
-    if (error) {
-      logSupabaseError("Error updating customer in Supabase", error);
-      res.status(500).json({ error: "No se puede guardar localmente. Supabase devolvió un error: " + error.message });
+  if (useSupabase()) {
+    try {
+      const { error } = await supabase.from("customers").update({
+        name: fullName,
+        dni: updated.dni || null,
+        email: updated.email || null,
+        phone: updated.phone || null,
+        address: updated.address || null
+      }).eq("id", req.params.id);
+      if (error) {
+        logSupabaseError("Error updating customer in Supabase", error);
+        res.status(500).json({ error: "No se puede guardar localmente. Supabase devolvió un error: " + error.message });
+        return;
+      }
+    } catch (err: any) {
+      console.error("Exception updating customer:", err);
+      res.status(500).json({ error: "Fallo de conexión crítico con Supabase: " + err.message });
       return;
     }
-  } catch (err: any) {
-    console.error("Exception updating customer:", err);
-    res.status(500).json({ error: "Fallo de conexión crítico con Supabase: " + err.message });
-    return;
   }
 
   db.customers[index] = updated;
@@ -1200,17 +1210,19 @@ app.delete("/api/customers/:id", async (req, res) => {
   const userName = req.headers["x-user-name"] as string || "Admin";
   const userRole = req.headers["x-user-role"] as string || "ADMINISTRADOR";
 
-  try {
-    const { error } = await supabase.from("customers").delete().eq("id", req.params.id);
-    if (error) {
-      logSupabaseError("Error deleting customer in Supabase", error);
-      res.status(500).json({ error: "No se puede eliminar localmente. Supabase devolvió un error: " + error.message });
+  if (useSupabase()) {
+    try {
+      const { error } = await supabase.from("customers").delete().eq("id", req.params.id);
+      if (error) {
+        logSupabaseError("Error deleting customer in Supabase", error);
+        res.status(500).json({ error: "No se puede eliminar localmente. Supabase devolvió un error: " + error.message });
+        return;
+      }
+    } catch (err: any) {
+      console.error("Exception deleting customer:", err);
+      res.status(500).json({ error: "Fallo de conexión crítico con Supabase: " + err.message });
       return;
     }
-  } catch (err: any) {
-    console.error("Exception deleting customer:", err);
-    res.status(500).json({ error: "Fallo de conexión crítico con Supabase: " + err.message });
-    return;
   }
 
   db.customers = db.customers.filter((cust: any) => cust.id !== req.params.id);
@@ -1244,20 +1256,23 @@ app.post("/api/orders", async (req, res) => {
     shippingCarrier
   } = req.body;
 
-  // 1. Direct validation against latest Supabase stock to assure enterprise limits
-  let dbProducts;
-  try {
-    const { data, error: pErr } = await supabase.from("products").select("id, name, stock, sku");
-    if (pErr) {
-       throw new Error(pErr.message);
+  // 1. Fetch available products list either from Supabase or local memoryDB
+  let productsList: any[] = [];
+  if (useSupabase()) {
+    try {
+      const { data, error: pErr } = await supabase.from("products").select("id, name, stock, sku");
+      if (pErr) {
+         throw new Error(pErr.message);
+      }
+      productsList = data || [];
+    } catch (err: any) {
+      console.error("Error fetching products for stock validation:", err);
+      res.status(500).json({ error: "Fallo de conexión crítico con Supabase: " + err.message });
+      return;
     }
-    dbProducts = data;
-  } catch (err: any) {
-    console.error("Error fetching products for stock validation:", err);
-    res.status(500).json({ error: "Fallo de conexión crítico con Supabase: " + err.message });
-    return;
+  } else {
+    productsList = db.products || [];
   }
-  const productsList = dbProducts || [];
 
   for (const item of items) {
     const prod = productsList.find((p: any) => p.id === item.productId);
@@ -1290,113 +1305,115 @@ app.post("/api/orders", async (req, res) => {
     coupon_applied: req.body.couponApplied || null
   };
 
-  try {
-    // Write primary Order row
-    const { error: oErr } = await supabase.from("orders").insert(newOrderPg);
-    if (oErr) {
-      logSupabaseError("Error inserting order into Supabase", oErr);
-      res.status(500).json({ error: "No se pudo guardar localmente. Supabase devolvió un error al crear la orden: " + oErr.message });
-      return;
-    }
-
-    // Write normalized Order Items to order_items table
-    const orderItemsPg = items.map((item: any) => ({
-      id: "item-" + Date.now() + "-" + Math.floor(Math.random() * 1000),
-      order_id: orderId,
-      product_id: item.productId,
-      quantity: Number(item.quantity),
-      unit_price: Number(item.price),
-      subtotal: Number(item.total || (item.quantity * item.price))
-    }));
-
-    const { error: oiErr } = await supabase.from("order_items").insert(orderItemsPg);
-    if (oiErr) {
-      logSupabaseError("Error inserting order_items into Supabase", oiErr);
-      res.status(500).json({ error: "No se pudo guardar localmente. Supabase devolvió un error al crear ítems de orden: " + oiErr.message });
-      return;
-    }
-
-    // Deduct stock and write Inventory logs on Supabase
-    for (const item of items) {
-      const prod = productsList.find((p: any) => p.id === item.productId);
-      const prevStock = prod ? prod.stock : 0;
-      const newStock = prevStock - item.quantity;
-
-      const { error: updErr } = await supabase.from("products").update({ stock: newStock }).eq("id", item.productId);
-      if (updErr) {
-        logSupabaseError("Error updating product stock in Supabase", updErr);
-        res.status(500).json({ error: "No se pudo guardar localmente. Supabase devolvió un error al actualizar Stock de prendas: " + updErr.message });
+  if (useSupabase()) {
+    try {
+      // Write primary Order row
+      const { error: oErr } = await supabase.from("orders").insert(newOrderPg);
+      if (oErr) {
+        logSupabaseError("Error inserting order into Supabase", oErr);
+        res.status(500).json({ error: "No se pudo guardar localmente. Supabase devolvió un error al crear la orden: " + oErr.message });
         return;
       }
 
-      const { error: invErr } = await supabase.from("inventory_logs").insert({
-        id: "log-" + Date.now() + "-" + Math.floor(Math.random() * 1000),
+      // Write normalized Order Items to order_items table
+      const orderItemsPg = items.map((item: any) => ({
+        id: "item-" + Date.now() + "-" + Math.floor(Math.random() * 1000),
+        order_id: orderId,
         product_id: item.productId,
-        type: "SALIDA",
-        quantity: item.quantity,
-        stock_before: prevStock,
-        stock_after: newStock,
-        reason: `Venta ${channel} ${orderCode}`,
-        registered_by: userName
+        quantity: Number(item.quantity),
+        unit_price: Number(item.price),
+        subtotal: Number(item.total || (item.quantity * item.price))
+      }));
+
+      const { error: oiErr } = await supabase.from("order_items").insert(orderItemsPg);
+      if (oiErr) {
+        logSupabaseError("Error inserting order_items into Supabase", oiErr);
+        res.status(500).json({ error: "No se pudo guardar localmente. Supabase devolvió un error al crear ítems de orden: " + oiErr.message });
+        return;
+      }
+
+      // Deduct stock and write Inventory logs on Supabase
+      for (const item of items) {
+        const prod = productsList.find((p: any) => p.id === item.productId);
+        const prevStock = prod ? prod.stock : 0;
+        const newStock = prevStock - item.quantity;
+
+        const { error: updErr } = await supabase.from("products").update({ stock: newStock }).eq("id", item.productId);
+        if (updErr) {
+          logSupabaseError("Error updating product stock in Supabase", updErr);
+          res.status(500).json({ error: "No se pudo guardar localmente. Supabase devolvió un error al actualizar Stock de prendas: " + updErr.message });
+          return;
+        }
+
+        const { error: invErr } = await supabase.from("inventory_logs").insert({
+          id: "log-" + Date.now() + "-" + Math.floor(Math.random() * 1000),
+          product_id: item.productId,
+          type: "SALIDA",
+          quantity: item.quantity,
+          stock_before: prevStock,
+          stock_after: newStock,
+          reason: `Venta ${channel} ${orderCode}`,
+          registered_by: userName
+        });
+        if (invErr) {
+           console.error("Error generating inventory log in Supabase:", invErr);
+        }
+      }
+
+      // Accumulate customer stats directly inside Supabase
+      const userCustId = customerId || "c-1";
+      const { data: customerEntry } = await supabase.from("customers").select("total_spent, order_count").eq("id", userCustId).single();
+      if (customerEntry) {
+        const currentSpent = Number(customerEntry.total_spent || 0);
+        const currentCount = Number(customerEntry.order_count || 0);
+        const { error: custErr } = await supabase.from("customers").update({
+          total_spent: Number((currentSpent + Number(total)).toFixed(2)),
+          order_count: currentCount + 1
+        }).eq("id", userCustId);
+        if (custErr) console.error("Error updating customer total_spent on Supabase:", custErr);
+      }
+
+      // Update opened cash drawer session on Supabase if POS Channel
+      if (channel === "POS") {
+        const { data: openSessions } = await supabase.from("cash_registers").select("*").eq("status", "ABIERTO");
+        const activeSession = openSessions && openSessions[0];
+        if (activeSession) {
+          const trxList = Array.isArray(activeSession.transactions) ? activeSession.transactions : [];
+          const newPOSTrx = {
+            id: "crt-" + Date.now(),
+            type: "VENTA",
+            amount: Number(total),
+            description: `Cobro en POS de orden ${orderCode}`,
+            timestamp: new Date().toISOString()
+          };
+          const updatedTrxList = [...trxList, newPOSTrx];
+          const newCurrentAmount = Number(activeSession.current_amount || 0) + Number(total);
+
+          const { error: crErr } = await supabase.from("cash_registers").update({
+            transactions: updatedTrxList,
+            current_amount: newCurrentAmount
+          }).eq("id", activeSession.id);
+          if (crErr) console.error("Error updating active cash register on Supabase:", crErr);
+        }
+      }
+
+      // Log accounting ledger of income to finance_transactions table
+      const { error: finErr } = await supabase.from("finance_transactions").insert({
+        id: "txn-" + Date.now(),
+        type: "INGRESO",
+        category: "VENTA",
+        amount: Number(total),
+        reference: `Cobro canal ${channel} - ${orderCode}`,
+        registered_by: userName,
+        refId: orderId
       });
-      if (invErr) {
-         console.error("Error generating inventory log in Supabase:", invErr);
-      }
+      if (finErr) console.error("Error logging finance_transaction on Supabase:", finErr);
+
+    } catch (err: any) {
+      console.error("Critical server checkout transaction error:", err);
+      res.status(500).json({ error: "Fallo de conexión crítico con Supabase: " + err.message });
+      return;
     }
-
-    // Accumulate customer stats directly inside Supabase
-    const userCustId = customerId || "c-1";
-    const { data: customerEntry } = await supabase.from("customers").select("total_spent, order_count").eq("id", userCustId).single();
-    if (customerEntry) {
-      const currentSpent = Number(customerEntry.total_spent || 0);
-      const currentCount = Number(customerEntry.order_count || 0);
-      const { error: custErr } = await supabase.from("customers").update({
-        total_spent: Number((currentSpent + Number(total)).toFixed(2)),
-        order_count: currentCount + 1
-      }).eq("id", userCustId);
-      if (custErr) console.error("Error updating customer total_spent on Supabase:", custErr);
-    }
-
-    // Update opened cash drawer session on Supabase if POS Channel
-    if (channel === "POS") {
-      const { data: openSessions } = await supabase.from("cash_registers").select("*").eq("status", "ABIERTO");
-      const activeSession = openSessions && openSessions[0];
-      if (activeSession) {
-        const trxList = Array.isArray(activeSession.transactions) ? activeSession.transactions : [];
-        const newPOSTrx = {
-          id: "crt-" + Date.now(),
-          type: "VENTA",
-          amount: Number(total),
-          description: `Cobro en POS de orden ${orderCode}`,
-          timestamp: new Date().toISOString()
-        };
-        const updatedTrxList = [...trxList, newPOSTrx];
-        const newCurrentAmount = Number(activeSession.current_amount || 0) + Number(total);
-
-        const { error: crErr } = await supabase.from("cash_registers").update({
-          transactions: updatedTrxList,
-          current_amount: newCurrentAmount
-        }).eq("id", activeSession.id);
-        if (crErr) console.error("Error updating active cash register on Supabase:", crErr);
-      }
-    }
-
-    // Log accounting ledger of income to finance_transactions table
-    const { error: finErr } = await supabase.from("finance_transactions").insert({
-      id: "txn-" + Date.now(),
-      type: "INGRESO",
-      category: "VENTA",
-      amount: Number(total),
-      reference: `Cobro canal ${channel} - ${orderCode}`,
-      registered_by: userName,
-      refId: orderId
-    });
-    if (finErr) console.error("Error logging finance_transaction on Supabase:", finErr);
-
-  } catch (err: any) {
-    console.error("Critical server checkout transaction error:", err);
-    res.status(500).json({ error: "Fallo de conexión crítico con Supabase: " + err.message });
-    return;
   }
 
   // Update memory state cache for instantaneous local performance (ONLY runs on Supabase success)
@@ -1490,62 +1507,118 @@ app.patch("/api/orders/:id/status", async (req, res) => {
   const originalStatus = db.orders[orderIndex].status;
   const newStatus = req.body.status;
 
-  try {
-    // 1. Update status on Supabase FIRST
-    const { error: sErr } = await supabase.from("orders").update({ status: newStatus }).eq("id", req.params.id);
-    if (sErr) {
-      logSupabaseError("Error updating order status on Supabase", sErr);
-      res.status(500).json({ error: "No se puede guardar localmente. Supabase devolvió un error: " + sErr.message });
+  if (useSupabase()) {
+    try {
+      // 1. Update status on Supabase FIRST
+      const { error: sErr } = await supabase.from("orders").update({ status: newStatus }).eq("id", req.params.id);
+      if (sErr) {
+        logSupabaseError("Error updating order status on Supabase", sErr);
+        res.status(500).json({ error: "No se puede guardar localmente. Supabase devolvió un error: " + sErr.message });
+        return;
+      }
+
+      // 2. Handle cancellation return stock
+      if (newStatus === "CANCELADO" && originalStatus !== "CANCELADO") {
+        for (const item of db.orders[orderIndex].items) {
+          const prod = db.products.find((p: any) => p.id === item.productId);
+          if (prod) {
+            const prevStock = prod.stock;
+            const newStock = prevStock + item.quantity;
+
+            const { error: updErr } = await supabase.from("products").update({ stock: newStock }).eq("id", prod.id);
+            if (updErr) {
+               console.error("Error returning cancelled product stock on Supabase:", updErr);
+            }
+
+            const nLog = {
+              id: "l-" + Date.now() + "-" + Math.floor(Math.random() * 100),
+              productId: prod.id,
+              productName: prod.name,
+              sku: prod.sku,
+              type: "ENTRADA" as const,
+              quantity: item.quantity,
+              previousStock: prevStock,
+              newStock: newStock,
+              reason: `Retorno por cancelación #${db.orders[orderIndex].code}`,
+              user: userName,
+              timestamp: new Date().toISOString()
+            };
+
+            const { error: logErr } = await supabase.from("inventory_logs").insert({
+              id: nLog.id,
+              product_id: nLog.productId,
+              type: "ENTRADA",
+              quantity: nLog.quantity,
+              stock_before: prevStock,
+              stock_after: newStock,
+              reason: nLog.reason,
+              registered_by: userName
+            });
+
+            if (!logErr) {
+              db.inventoryLogs.push(nLog);
+            }
+            prod.stock = newStock;
+          }
+        }
+
+        // Record refund transaction as EGRESO
+        const refTrx = {
+          id: "f-" + Date.now(),
+          type: "EGRESO",
+          category: "OTROS",
+          amount: db.orders[orderIndex].total,
+          description: `Reembolso por cancelación de orden ${db.orders[orderIndex].code}`,
+          timestamp: new Date().toISOString(),
+          refId: db.orders[orderIndex].id
+        };
+
+        const { error: finErr } = await supabase.from("finance_transactions").insert({
+          id: refTrx.id,
+          type: "EGRESO",
+          category: "OTROS",
+          amount: refTrx.amount,
+          reference: refTrx.description,
+          registered_by: userName,
+          refId: refTrx.refId
+        });
+
+        if (!finErr) {
+          db.financeTransactions.push(refTrx);
+        }
+      }
+    } catch (err: any) {
+      console.error("Exception processing order status patch:", err);
+      res.status(500).json({ error: "Fallo de conexión crítico con Supabase: " + err.message });
       return;
     }
-
-    // 2. Handle cancellation return stock
+  } else {
+    // Local fallback for cancellation return stock in memory DB
     if (newStatus === "CANCELADO" && originalStatus !== "CANCELADO") {
       for (const item of db.orders[orderIndex].items) {
         const prod = db.products.find((p: any) => p.id === item.productId);
         if (prod) {
           const prevStock = prod.stock;
           const newStock = prevStock + item.quantity;
+          prod.stock = newStock;
 
-          const { error: updErr } = await supabase.from("products").update({ stock: newStock }).eq("id", prod.id);
-          if (updErr) {
-             console.error("Error returning cancelled product stock on Supabase:", updErr);
-          }
-
-          const nLog = {
+          db.inventoryLogs.push({
             id: "l-" + Date.now() + "-" + Math.floor(Math.random() * 100),
             productId: prod.id,
             productName: prod.name,
             sku: prod.sku,
-            type: "ENTRADA" as const,
+            type: "ENTRADA",
             quantity: item.quantity,
             previousStock: prevStock,
             newStock: newStock,
             reason: `Retorno por cancelación #${db.orders[orderIndex].code}`,
             user: userName,
             timestamp: new Date().toISOString()
-          };
-
-          const { error: logErr } = await supabase.from("inventory_logs").insert({
-            id: nLog.id,
-            product_id: nLog.productId,
-            type: "ENTRADA",
-            quantity: nLog.quantity,
-            stock_before: prevStock,
-            stock_after: newStock,
-            reason: nLog.reason,
-            registered_by: userName
           });
-
-          if (!logErr) {
-            db.inventoryLogs.push(nLog);
-          }
-          prod.stock = newStock;
         }
       }
 
-      // Record refund transaction as EGRESO
-      const refTrx = {
+      db.financeTransactions.push({
         id: "f-" + Date.now(),
         type: "EGRESO",
         category: "OTROS",
@@ -1553,26 +1626,8 @@ app.patch("/api/orders/:id/status", async (req, res) => {
         description: `Reembolso por cancelación de orden ${db.orders[orderIndex].code}`,
         timestamp: new Date().toISOString(),
         refId: db.orders[orderIndex].id
-      };
-
-      const { error: finErr } = await supabase.from("finance_transactions").insert({
-        id: refTrx.id,
-        type: "EGRESO",
-        category: "OTROS",
-        amount: refTrx.amount,
-        reference: refTrx.description,
-        registered_by: userName,
-        refId: refTrx.refId
       });
-
-      if (!finErr) {
-        db.financeTransactions.push(refTrx);
-      }
     }
-  } catch (err: any) {
-    console.error("Exception processing order status patch:", err);
-    res.status(500).json({ error: "Fallo de conexión crítico con Supabase: " + err.message });
-    return;
   }
 
   db.orders[orderIndex].status = newStatus;
@@ -1869,26 +1924,28 @@ app.post("/api/cash-registers/open", async (req, res) => {
     status: "ABIERTA"
   };
 
-  try {
-    const { error } = await supabase.from("cash_registers").insert({
-      id: newSession.id,
-      opened_at: newSession.openedAt,
-      opened_by: newSession.userName,
-      initial_amount: newSession.initialAmount,
-      current_amount: newSession.initialAmount,
-      status: "ABIERTO",
-      transactions: [],
-      opened_by_user_id: newSession.userId
-    });
-    if (error) {
-      logSupabaseError("Error opening cash register in Supabase", error);
-      res.status(500).json({ error: "No se puede abrir caja localmente. Supabase devolvió un error: " + error.message });
+  if (useSupabase()) {
+    try {
+      const { error } = await supabase.from("cash_registers").insert({
+        id: newSession.id,
+        opened_at: newSession.openedAt,
+        opened_by: newSession.userName,
+        initial_amount: newSession.initialAmount,
+        current_amount: newSession.initialAmount,
+        status: "ABIERTO",
+        transactions: [],
+        opened_by_user_id: newSession.userId
+      });
+      if (error) {
+        logSupabaseError("Error opening cash register in Supabase", error);
+        res.status(500).json({ error: "No se puede abrir caja localmente. Supabase devolvió un error: " + error.message });
+        return;
+      }
+    } catch (err: any) {
+      console.error("Exception opening cash register:", err);
+      res.status(500).json({ error: "Fallo de conexión crítico con Supabase: " + err.message });
       return;
     }
-  } catch (err: any) {
-    console.error("Exception opening cash register:", err);
-    res.status(500).json({ error: "Fallo de conexión crítico con Supabase: " + err.message });
-    return;
   }
 
   db.cashRegisters.push(newSession);
@@ -1912,22 +1969,24 @@ app.post("/api/cash-registers/close", async (req, res) => {
   const closedAt = new Date().toISOString();
   const closedAmount = Number(req.body.closedAmount) || 0;
 
-  try {
-    const { error } = await supabase.from("cash_registers").update({
-      closed_at: closedAt,
-      real_cash_amount: closedAmount,
-      status: "CERRADO",
-      closed_by_user_id: session.userId || "u-admin"
-    }).eq("id", session.id);
-    if (error) {
-      logSupabaseError("Error closing cash register in Supabase", error);
-      res.status(500).json({ error: "No se puede cerrar caja localmente. Supabase devolvió un error: " + error.message });
+  if (useSupabase()) {
+    try {
+      const { error } = await supabase.from("cash_registers").update({
+        closed_at: closedAt,
+        real_cash_amount: closedAmount,
+        status: "CERRADO",
+        closed_by_user_id: session.userId || "u-admin"
+      }).eq("id", session.id);
+      if (error) {
+        logSupabaseError("Error closing cash register in Supabase", error);
+        res.status(500).json({ error: "No se puede cerrar caja localmente. Supabase devolvió un error: " + error.message });
+        return;
+      }
+    } catch (err: any) {
+      console.error("Exception closing cash register:", err);
+      res.status(500).json({ error: "Fallo de conexión crítico con Supabase: " + err.message });
       return;
     }
-  } catch (err: any) {
-    console.error("Exception closing cash register:", err);
-    res.status(500).json({ error: "Fallo de conexión crítico con Supabase: " + err.message });
-    return;
   }
 
   session.status = "CERRADA";
@@ -1961,46 +2020,48 @@ app.post("/api/cash-registers/transaction", async (req, res) => {
     timestamp: new Date().toISOString()
   };
 
-  try {
-    // Read previous transactions from DB
-    const { data: dbRegister, error: gsErr } = await supabase.from("cash_registers").select("transactions, current_amount").eq("id", session.id).single();
-    if (gsErr) {
-       throw new Error(gsErr.message);
-    }
-    if (!dbRegister) {
-       throw new Error("No cash register document found in database.");
-    }
-    
-    const prevTransactions = Array.isArray(dbRegister.transactions) ? dbRegister.transactions : [];
-    const updatedTrxs = [...prevTransactions, trx];
-    const prevAmount = Number(dbRegister.current_amount || 0);
-    const newAmount = type === "INGRESO" ? prevAmount + Number(amount) : prevAmount - Number(amount);
+  if (useSupabase()) {
+    try {
+      // Read previous transactions from DB
+      const { data: dbRegister, error: gsErr } = await supabase.from("cash_registers").select("transactions, current_amount").eq("id", session.id).single();
+      if (gsErr) {
+         throw new Error(gsErr.message);
+      }
+      if (!dbRegister) {
+         throw new Error("No cash register document found in database.");
+      }
+      
+      const prevTransactions = Array.isArray(dbRegister.transactions) ? dbRegister.transactions : [];
+      const updatedTrxs = [...prevTransactions, trx];
+      const prevAmount = Number(dbRegister.current_amount || 0);
+      const newAmount = type === "INGRESO" ? prevAmount + Number(amount) : prevAmount - Number(amount);
 
-    const { error: updErr } = await supabase.from("cash_registers").update({
-      transactions: updatedTrxs,
-      current_amount: newAmount
-    }).eq("id", session.id);
-    
-    if (updErr) {
-       throw new Error(updErr.message);
-    }
+      const { error: updErr } = await supabase.from("cash_registers").update({
+        transactions: updatedTrxs,
+        current_amount: newAmount
+      }).eq("id", session.id);
+      
+      if (updErr) {
+         throw new Error(updErr.message);
+      }
 
-    // Insert sync into finance_transactions table
-    const { error: finErr } = await supabase.from("finance_transactions").insert({
-      id: "f-" + Date.now(),
-      type: type,
-      category: type === "INGRESO" ? "VENTA" : "GASTO_OPERATIVO",
-      amount: Number(amount),
-      reference: `Caja POS: ${description}`,
-      registered_by: userName
-    });
-    if (finErr) {
-       console.error("Error logging manual cash ledger to Supabase:", finErr);
+      // Insert sync into finance_transactions table
+      const { error: finErr } = await supabase.from("finance_transactions").insert({
+        id: "f-" + Date.now(),
+        type: type,
+        category: type === "INGRESO" ? "VENTA" : "GASTO_OPERATIVO",
+        amount: Number(amount),
+        reference: `Caja POS: ${description}`,
+        registered_by: userName
+      });
+      if (finErr) {
+         console.error("Error logging manual cash ledger to Supabase:", finErr);
+      }
+    } catch (err: any) {
+      console.error("Exception in cash register manual transaction sync:", err);
+      res.status(500).json({ error: "No se puede guardar localmente. Supabase devolvió un error de transacción de caja: " + err.message });
+      return;
     }
-  } catch (err: any) {
-    console.error("Exception in cash register manual transaction sync:", err);
-    res.status(500).json({ error: "No se puede guardar localmente. Supabase devolvió un error de transacción de caja: " + err.message });
-    return;
   }
 
   session.transactions.push(trx);
@@ -2040,24 +2101,26 @@ app.post("/api/finance", async (req, res) => {
     timestamp: new Date().toISOString()
   };
 
-  try {
-    const { error } = await supabase.from("finance_transactions").insert({
-      id: newTrx.id,
-      type: newTrx.type,
-      category: newTrx.category,
-      amount: newTrx.amount,
-      reference: newTrx.description,
-      registered_by: userName
-    });
-    if (error) {
-      logSupabaseError("Error creating finance transaction in Supabase", error);
-      res.status(500).json({ error: "No se puede guardar localmente. Supabase devolvió un error: " + error.message });
+  if (useSupabase()) {
+    try {
+      const { error } = await supabase.from("finance_transactions").insert({
+        id: newTrx.id,
+        type: newTrx.type,
+        category: newTrx.category,
+        amount: newTrx.amount,
+        reference: newTrx.description,
+        registered_by: userName
+      });
+      if (error) {
+        logSupabaseError("Error creating finance transaction in Supabase", error);
+        res.status(500).json({ error: "No se puede guardar localmente. Supabase devolvió un error: " + error.message });
+        return;
+      }
+    } catch (err: any) {
+      console.error("Exception recording finance transaction:", err);
+      res.status(500).json({ error: "Fallo de conexión crítico con Supabase: " + err.message });
       return;
     }
-  } catch (err: any) {
-    console.error("Exception recording finance transaction:", err);
-    res.status(500).json({ error: "Fallo de conexión crítico con Supabase: " + err.message });
-    return;
   }
 
   db.financeTransactions.push(newTrx);
@@ -2081,23 +2144,25 @@ app.post("/api/audit", async (req, res) => {
 
   const newLogId = "a-" + Date.now();
 
-  try {
-    const { error } = await supabase.from("audit_logs").insert({
-      id: newLogId,
-      user_name: user,
-      user_role: role,
-      action: action,
-      details: details
-    });
-    if (error) {
-      logSupabaseError("Error adding audit log to Supabase", error);
-      res.status(500).json({ error: "No se puede registrar auditoría localmente. Supabase devolvió un error: " + error.message });
+  if (useSupabase()) {
+    try {
+      const { error } = await supabase.from("audit_logs").insert({
+        id: newLogId,
+        user_name: user,
+        user_role: role,
+        action: action,
+        details: details
+      });
+      if (error) {
+        logSupabaseError("Error adding audit log to Supabase", error);
+        res.status(500).json({ error: "No se puede registrar auditoría localmente. Supabase devolvió un error: " + error.message });
+        return;
+      }
+    } catch (err: any) {
+      console.error("Exception adding audit log:", err);
+      res.status(500).json({ error: "Fallo de conexión crítico con Supabase: " + err.message });
       return;
     }
-  } catch (err: any) {
-    console.error("Exception adding audit log:", err);
-    res.status(500).json({ error: "Fallo de conexión crítico con Supabase: " + err.message });
-    return;
   }
 
   addAuditLog(db, user, role, action, details);
@@ -2113,8 +2178,8 @@ app.get("/api/supabase/status", async (req, res) => {
   const rawUrl = process.env.SUPABASE_URL || "";
   const rawKey = process.env.SUPABASE_ANON_KEY || "";
   
-  const url = sanitizeSupabaseEnv(rawUrl, true) || "https://hvbqbvorrroyrvlchmvb.supabase.co";
-  const key = sanitizeSupabaseEnv(rawKey, false) || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh2YnFidm9ycnJveXJ2bGNobXZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwOTA4MjAsImV4cCI6MjA5NzY2NjgyMH0.PUJmwam12nMQgBo8jg_lp_pddaf351Igd8I4PAamfOQ";
+  const url = sanitizeSupabaseEnv(rawUrl, true) || "https://jfkfmvbmvhneslrqgcql.supabase.co";
+  const key = sanitizeSupabaseEnv(rawKey, false) || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impma2ZtdmJtdmhuZXNscnFnY3FsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwNTM4ODQsImV4cCI6MjA5NzYyOTg4NH0.Usxt7wkGPJnT1hiMoaKVf1sYcIoq-ibszIhD8dIh94Y";
   
   if (!url || !key) {
     return res.json({
@@ -2457,7 +2522,6 @@ Métricas de rendimiento gerencial:
 // Vite middleware for development
 async function startServer() {
   if (process.env.NODE_ENV !== "production") {
-    const { createServer: createViteServer } = await import("vite");
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: "spa",
@@ -2477,8 +2541,4 @@ async function startServer() {
   });
 }
 
-if (!process.env.VERCEL) {
-  startServer();
-}
-
-export default app;
+startServer();

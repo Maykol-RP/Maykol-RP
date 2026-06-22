@@ -2,23 +2,10 @@
   "users": [
     {
       "id": "u-admin",
-      "email": "erteanti@gmail.com",
+      "email": "admin@andesmoda.com",
       "name": "Administrador Principal",
       "role": "ADMINISTRADOR",
-      "status": "ACTIVO",
-      "dni": "12345678",
-      "phone": "987654321",
-      "address": "Avenida Los Incas 405, Cusco"
-    },
-    {
-      "id": "u-vendedor",
-      "email": "vendedor@andesmoda.pe",
-      "name": "Elena Ramos Vendedora",
-      "role": "VENDEDOR",
-      "status": "ACTIVO",
-      "dni": "87654321",
-      "phone": "981234567",
-      "address": "Jr. de la Selva 102, Lima"
+      "status": "ACTIVO"
     },
     {
       "id": "u-vendor",
@@ -39,30 +26,6 @@
     }
   ],
   "categories": [
-    {
-      "id": "c-1",
-      "name": "Suéteres de Alpaca",
-      "description": "Prendas con finas fibras de alpaca cuzqueña y alta retención térmica",
-      "slug": "su-teres-de-alpaca"
-    },
-    {
-      "id": "c-2",
-      "name": "Chumpas Navideñas",
-      "description": "Línea de temporada con designs andinos para invierno festivo",
-      "slug": "chumpas-navide-as"
-    },
-    {
-      "id": "c-3",
-      "name": "Bufandas Bordadas",
-      "description": "Accesorios de telar tradicional hechos por comunidades cusqueñas",
-      "slug": "bufandas-bordadas"
-    },
-    {
-      "id": "c-4",
-      "name": "Sacos Premium",
-      "description": "Sacos ejecutivos de alta costura con toques andinos ancestrales",
-      "slug": "sacos-premium"
-    },
     {
       "id": "cat-1",
       "name": "Suéteres de Alpaca",
@@ -97,910 +60,102 @@
   "products": [
     {
       "id": "p-1",
-      "sku": "AND-8941",
-      "barcode": "775893201485",
-      "name": "Suéter de Alpaca Cusco Imperial",
-      "description": "Hecho con 100% alpaca tejida a mano con patrones tradicionales ornamentales del valle sagrado.",
+      "sku": "AND-SU-001",
+      "barcode": "7751234560012",
+      "name": "Suéter Cusco Premium Alpaca",
+      "description": "Suéter con detalles étnicos tejidos a mano, 100% fibra de alpaca de los Andes de Cusco. Extremadamente cálido y ligero.",
       "category": "Suéteres de Alpaca",
-      "category_id": "c-1",
       "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 120,
-      "offerPrice": 110,
-      "stock": 18,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&q=80&w=400"
-      ],
+      "purchasePrice": 75,
+      "salePrice": 159.9,
+      "offerPrice": 139.9,
+      "stock": 42,
+      "minStock": 8,
+      "images": ["https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&q=80&w=400"],
       "status": "ACTIVO"
     },
     {
       "id": "p-2",
-      "sku": "AND-3211",
-      "barcode": "775432109865",
-      "name": "Chumpa Navideña Rodolfo",
-      "description": "Fibra abrigadora extra premium con cuello redondo y diseño exclusivo invernal festivo.",
-      "category": "Chumpas Navideñas",
-      "category_id": "c-2",
+      "sku": "AND-AB-002",
+      "barcode": "7751234560029",
+      "name": "Saco Tradicional Arequipa",
+      "description": "Saco estructurado elegante hecho de paño de alpaca gruesa con forro de jacquard. Perfecto para eventos de gala o invierno rígido.",
+      "category": "Abrigos & Ponchos",
       "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 89.9,
+      "purchasePrice": 140,
+      "salePrice": 289,
       "offerPrice": 0,
-      "stock": 4,
+      "stock": 14,
       "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=400"
-      ],
+      "images": ["https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=400"],
       "status": "ACTIVO"
     },
     {
       "id": "p-3",
-      "sku": "AND-5541",
-      "barcode": "775554123451",
-      "name": "Bufanda de Telar Písac",
-      "description": "Bufanda artesanal de alpaca hilada y teñida orgánicamente.",
-      "category": "Bufandas Bordadas",
-      "category_id": "c-3",
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 50,
-      "offerPrice": 0,
-      "stock": 12,
-      "minStock": 3,
-      "images": [
-        "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=400"
-      ],
+      "sku": "AND-BU-003",
+      "barcode": "7751234560036",
+      "name": "Bufanda Telar Colca Unisex",
+      "description": "Bufanda de tacto sedoso en patrón de espigas, elaborada artesanalmente en el Valle del Colca.",
+      "category": "Bufandas & Chales",
+      "brand": "Kantu",
+      "purchasePrice": 15,
+      "salePrice": 45,
+      "offerPrice": 39.9,
+      "stock": 115,
+      "minStock": 15,
+      "images": ["https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=400"],
       "status": "ACTIVO"
     },
     {
       "id": "p-4",
-      "sku": "AND-8942",
-      "barcode": "775893201486",
-      "name": "Suéter Alpaca Huacaya Premium",
-      "description": "Tejido premium con lana de alpaca Huacaya, diseño minimalista y textura ultra suave.",
-      "category": "Suéteres de Alpaca",
-      "category_id": "c-1",
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 135,
+      "sku": "AND-VE-004",
+      "barcode": "7751234560043",
+      "name": "Vestido Inti Raymi Bordado",
+      "description": "Vestido entallado casual con espectaculares bordados florales en el cuello y mangas, confeccionado en lino pre-lavado.",
+      "category": "Vestidos Étnicos",
+      "brand": "InkaStyle",
+      "purchasePrice": 65,
+      "salePrice": 149,
       "offerPrice": 0,
-      "stock": 15,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&q=80&w=400"
-      ],
+      "stock": 9,
+      "minStock": 4,
+      "images": ["https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&q=80&w=400"],
       "status": "ACTIVO"
     },
     {
       "id": "p-5",
-      "sku": "AND-8943",
-      "barcode": "775893201487",
-      "name": "Cardigan Alpaca Andina",
-      "description": "Cardigan abierto con botones de madera tallada y bolsillos delanteros.",
-      "category": "Suéteres de Alpaca",
-      "category_id": "c-1",
+      "sku": "AND-PO-005",
+      "barcode": "7751234560050",
+      "name": "Polo Pima Imperial Blanca",
+      "description": "Polo básico de cuello redondo elaborado con el más fino y resistente algodón Pima Peruano.",
+      "category": "Polos & Camisas",
       "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 145,
-      "offerPrice": 130,
-      "stock": 10,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&q=80&w=400"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-11",
-      "sku": "AND-8944",
-      "barcode": "775893201488",
-      "name": "Suéter Cuello Tortuga Alpaca",
-      "description": "Suéter elegante con cuello de tortuga, ideal para el frío extremo.",
-      "category": "Suéteres de Alpaca",
-      "category_id": "c-1",
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 160,
-      "offerPrice": 0,
-      "stock": 12,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=400"
-      ],
+      "purchasePrice": 22,
+      "salePrice": 59.9,
+      "offerPrice": 49.9,
+      "stock": 85,
+      "minStock": 10,
+      "images": ["https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&q=80&w=400"],
       "status": "ACTIVO"
     },
     {
       "id": "p-6",
-      "sku": "AND-3212",
-      "barcode": "775432109866",
-      "name": "Chumpa Navideña Copos Andinos",
-      "description": "Con motivos navideños combinados con patrones geométricos andinos tradicionales.",
-      "category": "Chumpas Navideñas",
-      "category_id": "c-2",
-      "brand": "AndesModa",
-      "purchasePrice": 0,
+      "sku": "AND-CH-006",
+      "barcode": "7751234560067",
+      "name": "Chal Andino Multicolor",
+      "description": "Chal amplio con flecos confeccionado con tintes naturales de cochinilla e índigo.",
+      "category": "Bufandas & Chales",
+      "brand": "Kantu",
+      "purchasePrice": 30,
       "salePrice": 79.9,
-      "offerPrice": 69.9,
-      "stock": 20,
+      "offerPrice": 72.9,
+      "stock": 3,
       "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&q=80&w=400"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-7",
-      "sku": "AND-5542",
-      "barcode": "775554123452",
-      "name": "Bufanda Chinchero Infinity",
-      "description": "Bufanda circular con bordados florales hechos a mano por artesanas de Chinchero.",
-      "category": "Bufandas Bordadas",
-      "category_id": "c-3",
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 45,
-      "offerPrice": 0,
-      "stock": 25,
-      "minStock": 3,
-      "images": [
-        "https://images.unsplash.com/photo-1520903928273-0f44b2a2eed5?auto=format&fit=crop&q=80&w=400"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-12",
-      "sku": "AND-5543",
-      "barcode": "775554123453",
-      "name": "Bufanda Clásica de Lana Ovino",
-      "description": "Bufanda ligera y abrigadora elaborada con lana fina de oveja seleccionada.",
-      "category": "Bufandas Bordadas",
-      "category_id": "c-3",
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 38,
-      "offerPrice": 0,
-      "stock": 30,
-      "minStock": 3,
-      "images": [
-        "https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?auto=format&fit=crop&q=80&w=400"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-8",
-      "sku": "AND-6611",
-      "barcode": "775661123401",
-      "name": "Saco Ejecutivo Inti Raymi",
-      "description": "Saco de paño de alpaca fina con detalles bordados en hilos dorados en cuello y puños.",
-      "category": "Sacos Premium",
-      "category_id": "c-4",
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 299,
-      "offerPrice": 0,
-      "stock": 8,
-      "minStock": 4,
-      "images": [
-        "https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?auto=format&fit=crop&q=80&w=400"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-9",
-      "sku": "AND-6612",
-      "barcode": "775661123402",
-      "name": "Saco Andino Imperial Negro",
-      "description": "Elegante saco oscuro entallado con aplicaciones de telar tradicional en solapas.",
-      "category": "Sacos Premium",
-      "category_id": "c-4",
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 320,
-      "offerPrice": 280,
-      "stock": 6,
-      "minStock": 4,
-      "images": [
-        "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&q=80&w=400"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-10",
-      "sku": "AND-6613",
-      "barcode": "775661123403",
-      "name": "Saco de Alpaca Ejecutiva Gris",
-      "description": "Saco formal estructurado ideal para eventos corporativos y climas fríos.",
-      "category": "Sacos Premium",
-      "category_id": "c-4",
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 360,
-      "offerPrice": 0,
-      "stock": 5,
-      "minStock": 4,
-      "images": [
-        "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&q=80&w=400"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-bulk-1782105329318-1",
-      "sku": "ANDES-89449",
-      "barcode": "775862759200",
-      "name": "Clásico Accesorios - Variante 1",
-      "description": "",
-      "category": "Suéteres de Alpaca",
-      "category_id": null,
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 619,
-      "offerPrice": 0,
-      "stock": 30,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&q=80&w=800"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-bulk-1782105329318-2",
-      "sku": "ANDES-64927",
-      "barcode": "775332751967",
-      "name": "Clásico Abrigos & Ponchos - Variante 2",
-      "description": "",
-      "category": "Suéteres de Alpaca",
-      "category_id": null,
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 275,
-      "offerPrice": 0,
-      "stock": 49,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1608256246200-53e635b5b65f?auto=format&fit=crop&q=80&w=800"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-bulk-1782105329318-3",
-      "sku": "ANDES-49425",
-      "barcode": "775636245245",
-      "name": "Clásico Abrigos & Ponchos - Variante 3",
-      "description": "",
-      "category": "Suéteres de Alpaca",
-      "category_id": null,
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 324,
-      "offerPrice": 0,
-      "stock": 6,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1434389670869-c88439226ebc?auto=format&fit=crop&q=80&w=800"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-bulk-1782105329318-4",
-      "sku": "ANDES-21129",
-      "barcode": "775642016154",
-      "name": "Clásico Suéteres de Alpaca - Variante 4",
-      "description": "",
-      "category": "Suéteres de Alpaca",
-      "category_id": "c-1",
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 243,
-      "offerPrice": 155,
-      "stock": 48,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1606902965551-dce093cda6e7?auto=format&fit=crop&q=80&w=800"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-bulk-1782105329318-5",
-      "sku": "ANDES-44827",
-      "barcode": "775377181203",
-      "name": "Premium Edición Limitada - Variante 5",
-      "description": "",
-      "category": "Suéteres de Alpaca",
-      "category_id": null,
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 405,
-      "offerPrice": 0,
-      "stock": 15,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80&w=800"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-bulk-1782105329318-6",
-      "sku": "ANDES-63021",
-      "barcode": "775122247113",
-      "name": "Clásico Suéteres de Alpaca - Variante 6",
-      "description": "",
-      "category": "Suéteres de Alpaca",
-      "category_id": "c-1",
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 382,
-      "offerPrice": 274,
-      "stock": 28,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&q=80&w=800"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-bulk-1782105329318-7",
-      "sku": "ANDES-71171",
-      "barcode": "775615695999",
-      "name": "Premium Edición Limitada - Variante 7",
-      "description": "",
-      "category": "Suéteres de Alpaca",
-      "category_id": null,
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 460,
-      "offerPrice": 0,
-      "stock": 23,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80&w=800"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-bulk-1782105329318-8",
-      "sku": "ANDES-30529",
-      "barcode": "775277596990",
-      "name": "Clásico Bufandas Bordadas - Variante 8",
-      "description": "",
-      "category": "Bufandas Bordadas",
-      "category_id": "c-3",
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 329,
-      "offerPrice": 0,
-      "stock": 33,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1608256246200-53e635b5b65f?auto=format&fit=crop&q=80&w=800"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-bulk-1782105329318-9",
-      "sku": "ANDES-24294",
-      "barcode": "775419771050",
-      "name": "Clásico Suéteres de Alpaca - Variante 9",
-      "description": "",
-      "category": "Suéteres de Alpaca",
-      "category_id": "c-1",
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 628,
-      "offerPrice": 0,
-      "stock": 22,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1588665042894-6b99deaf8298?auto=format&fit=crop&q=80&w=800"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-bulk-1782105329318-10",
-      "sku": "ANDES-18605",
-      "barcode": "775290122015",
-      "name": "Clásico Abrigos & Ponchos - Variante 10",
-      "description": "",
-      "category": "Suéteres de Alpaca",
-      "category_id": null,
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 646,
-      "offerPrice": 0,
-      "stock": 23,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80&w=800"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-bulk-1782105329318-11",
-      "sku": "ANDES-24985",
-      "barcode": "775500747900",
-      "name": "Clásico Accesorios - Variante 11",
-      "description": "",
-      "category": "Suéteres de Alpaca",
-      "category_id": null,
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 558,
-      "offerPrice": 0,
-      "stock": 48,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1434389670869-c88439226ebc?auto=format&fit=crop&q=80&w=800"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-bulk-1782105329318-12",
-      "sku": "ANDES-94854",
-      "barcode": "775827452319",
-      "name": "Clásico Bufandas Bordadas - Variante 12",
-      "description": "",
-      "category": "Bufandas Bordadas",
-      "category_id": "c-3",
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 222,
-      "offerPrice": 0,
-      "stock": 43,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1612423284934-2850a4eaeafb?auto=format&fit=crop&q=80&w=800"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-bulk-1782105329318-13",
-      "sku": "ANDES-28289",
-      "barcode": "775181050655",
-      "name": "Clásico Bufandas Bordadas - Variante 13",
-      "description": "",
-      "category": "Bufandas Bordadas",
-      "category_id": "c-3",
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 787,
-      "offerPrice": 648,
-      "stock": 40,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1588665042894-6b99deaf8298?auto=format&fit=crop&q=80&w=800"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-bulk-1782105329318-14",
-      "sku": "ANDES-99331",
-      "barcode": "775928368093",
-      "name": "Premium Edición Limitada - Variante 14",
-      "description": "",
-      "category": "Suéteres de Alpaca",
-      "category_id": null,
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 273,
-      "offerPrice": 0,
-      "stock": 35,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1574539602047-548bf9557352?auto=format&fit=crop&q=80&w=800"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-bulk-1782105329318-15",
-      "sku": "ANDES-76323",
-      "barcode": "775565960023",
-      "name": "Clásico Abrigos & Ponchos - Variante 15",
-      "description": "",
-      "category": "Suéteres de Alpaca",
-      "category_id": null,
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 313,
-      "offerPrice": 174,
-      "stock": 8,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&q=80&w=800"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-bulk-1782105329318-16",
-      "sku": "ANDES-90477",
-      "barcode": "775532948890",
-      "name": "Clásico Bufandas Bordadas - Variante 16",
-      "description": "",
-      "category": "Bufandas Bordadas",
-      "category_id": "c-3",
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 397,
-      "offerPrice": 0,
-      "stock": 16,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1549439602-43ebca2327af?auto=format&fit=crop&q=80&w=800"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-bulk-1782105329318-17",
-      "sku": "ANDES-72480",
-      "barcode": "77592679367",
-      "name": "Premium Edición Limitada - Variante 17",
-      "description": "",
-      "category": "Suéteres de Alpaca",
-      "category_id": null,
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 413,
-      "offerPrice": 0,
-      "stock": 20,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1574539602047-548bf9557352?auto=format&fit=crop&q=80&w=800"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-bulk-1782105329318-18",
-      "sku": "ANDES-69803",
-      "barcode": "775160346726",
-      "name": "Clásico Abrigos & Ponchos - Variante 18",
-      "description": "",
-      "category": "Suéteres de Alpaca",
-      "category_id": null,
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 465,
-      "offerPrice": 0,
-      "stock": 40,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&q=80&w=800"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-bulk-1782105329318-19",
-      "sku": "ANDES-24448",
-      "barcode": "775220160285",
-      "name": "Clásico Bufandas Bordadas - Variante 19",
-      "description": "",
-      "category": "Bufandas Bordadas",
-      "category_id": "c-3",
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 707,
-      "offerPrice": 631,
-      "stock": 39,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1434389670869-c88439226ebc?auto=format&fit=crop&q=80&w=800"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-bulk-1782105329318-20",
-      "sku": "ANDES-85915",
-      "barcode": "775971357239",
-      "name": "Clásico Bufandas Bordadas - Variante 20",
-      "description": "",
-      "category": "Bufandas Bordadas",
-      "category_id": "c-3",
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 361,
-      "offerPrice": 0,
-      "stock": 54,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1584273143981-41c073dfe8f8?auto=format&fit=crop&q=80&w=800"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-bulk-1782105329318-21",
-      "sku": "ANDES-34973",
-      "barcode": "775629059599",
-      "name": "Clásico Abrigos & Ponchos - Variante 21",
-      "description": "",
-      "category": "Suéteres de Alpaca",
-      "category_id": null,
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 749,
-      "offerPrice": 648,
-      "stock": 51,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80&w=800"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-bulk-1782105329318-22",
-      "sku": "ANDES-64146",
-      "barcode": "775923955275",
-      "name": "Clásico Suéteres de Alpaca - Variante 22",
-      "description": "",
-      "category": "Suéteres de Alpaca",
-      "category_id": "c-1",
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 927,
-      "offerPrice": 0,
-      "stock": 30,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1588665042894-6b99deaf8298?auto=format&fit=crop&q=80&w=800"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-bulk-1782105329318-23",
-      "sku": "ANDES-93385",
-      "barcode": "775158112780",
-      "name": "Clásico Bufandas Bordadas - Variante 23",
-      "description": "",
-      "category": "Bufandas Bordadas",
-      "category_id": "c-3",
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 921,
-      "offerPrice": 0,
-      "stock": 34,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1608256246200-53e635b5b65f?auto=format&fit=crop&q=80&w=800"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-bulk-1782105329318-24",
-      "sku": "ANDES-24459",
-      "barcode": "775357672762",
-      "name": "Clásico Abrigos & Ponchos - Variante 24",
-      "description": "",
-      "category": "Suéteres de Alpaca",
-      "category_id": null,
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 937,
-      "offerPrice": 0,
-      "stock": 43,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80&w=800"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-bulk-1782105329318-25",
-      "sku": "ANDES-32970",
-      "barcode": "775386773294",
-      "name": "Clásico Suéteres de Alpaca - Variante 25",
-      "description": "",
-      "category": "Suéteres de Alpaca",
-      "category_id": "c-1",
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 749,
-      "offerPrice": 0,
-      "stock": 43,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1434389670869-c88439226ebc?auto=format&fit=crop&q=80&w=800"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-bulk-1782105329318-26",
-      "sku": "ANDES-90330",
-      "barcode": "775680412545",
-      "name": "Clásico Abrigos & Ponchos - Variante 26",
-      "description": "",
-      "category": "Suéteres de Alpaca",
-      "category_id": null,
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 467,
-      "offerPrice": 0,
-      "stock": 12,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1588665042894-6b99deaf8298?auto=format&fit=crop&q=80&w=800"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-bulk-1782105329318-27",
-      "sku": "ANDES-83819",
-      "barcode": "775310626906",
-      "name": "Clásico Abrigos & Ponchos - Variante 27",
-      "description": "",
-      "category": "Suéteres de Alpaca",
-      "category_id": null,
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 385,
-      "offerPrice": 310,
-      "stock": 7,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1606902965551-dce093cda6e7?auto=format&fit=crop&q=80&w=800"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-bulk-1782105329318-28",
-      "sku": "ANDES-78034",
-      "barcode": "775933108991",
-      "name": "Clásico Suéteres de Alpaca - Variante 28",
-      "description": "",
-      "category": "Suéteres de Alpaca",
-      "category_id": "c-1",
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 710,
-      "offerPrice": 0,
-      "stock": 48,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1604644401890-0bd678c83788?auto=format&fit=crop&q=80&w=800"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-bulk-1782105329318-29",
-      "sku": "ANDES-45272",
-      "barcode": "775496220680",
-      "name": "Clásico Accesorios - Variante 29",
-      "description": "",
-      "category": "Suéteres de Alpaca",
-      "category_id": null,
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 898,
-      "offerPrice": 0,
-      "stock": 40,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1584273143981-41c073dfe8f8?auto=format&fit=crop&q=80&w=800"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-bulk-1782105329318-30",
-      "sku": "ANDES-75951",
-      "barcode": "775171932801",
-      "name": "Clásico Bufandas Bordadas - Variante 30",
-      "description": "",
-      "category": "Bufandas Bordadas",
-      "category_id": "c-3",
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 228,
-      "offerPrice": 150,
-      "stock": 34,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1606902965551-dce093cda6e7?auto=format&fit=crop&q=80&w=800"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-bulk-1782105329318-31",
-      "sku": "ANDES-94988",
-      "barcode": "775314506145",
-      "name": "Clásico Suéteres de Alpaca - Variante 31",
-      "description": "",
-      "category": "Suéteres de Alpaca",
-      "category_id": "c-1",
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 508,
-      "offerPrice": 0,
-      "stock": 43,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1574539602047-548bf9557352?auto=format&fit=crop&q=80&w=800"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-bulk-1782105329318-32",
-      "sku": "ANDES-55639",
-      "barcode": "775586399193",
-      "name": "Premium Edición Limitada - Variante 32",
-      "description": "",
-      "category": "Suéteres de Alpaca",
-      "category_id": null,
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 805,
-      "offerPrice": 668,
-      "stock": 11,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1434389670869-c88439226ebc?auto=format&fit=crop&q=80&w=800"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-bulk-1782105329318-33",
-      "sku": "ANDES-74855",
-      "barcode": "775502924483",
-      "name": "Clásico Abrigos & Ponchos - Variante 33",
-      "description": "",
-      "category": "Suéteres de Alpaca",
-      "category_id": null,
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 501,
-      "offerPrice": 0,
-      "stock": 45,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&q=80&w=800"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-bulk-1782105329318-34",
-      "sku": "ANDES-74396",
-      "barcode": "775231135631",
-      "name": "Clásico Abrigos & Ponchos - Variante 34",
-      "description": "",
-      "category": "Suéteres de Alpaca",
-      "category_id": null,
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 435,
-      "offerPrice": 313,
-      "stock": 5,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&q=80&w=800"
-      ],
-      "status": "ACTIVO"
-    },
-    {
-      "id": "p-bulk-1782105329318-35",
-      "sku": "ANDES-35584",
-      "barcode": "775222356201",
-      "name": "Clásico Bufandas Bordadas - Variante 35",
-      "description": "",
-      "category": "Bufandas Bordadas",
-      "category_id": "c-3",
-      "brand": "AndesModa",
-      "purchasePrice": 0,
-      "salePrice": 561,
-      "offerPrice": 0,
-      "stock": 46,
-      "minStock": 5,
-      "images": [
-        "https://images.unsplash.com/photo-1608256246200-53e635b5b65f?auto=format&fit=crop&q=80&w=800"
-      ],
+      "images": ["https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&q=80&w=400"],
       "status": "ACTIVO"
     }
   ],
   "customers": [
-    {
-      "id": "cus-1",
-      "dni": "44321098",
-      "name": "Sofía",
-      "lastName": "Ramos",
-      "email": "sofia@gmail.com",
-      "phone": "998877665",
-      "address": "San Blas Alto 41, Cusco",
-      "totalSpent": 0,
-      "orderCount": 0
-    },
     {
       "id": "c-1",
       "dni": "72648591",
@@ -1033,6 +188,91 @@
       "address": "Urb. Angamos B-12, Arequipa",
       "totalSpent": 0,
       "orderCount": 0
+    }
+  ],
+  "shippingMethods": [
+    {
+      "id": "sm-1",
+      "name": "Olva Courier",
+      "cost": 15,
+      "deliveryTime": "2-3 días",
+      "status": "ACTIVO"
+    },
+    {
+      "id": "sm-2",
+      "name": "Shalom",
+      "cost": 12,
+      "deliveryTime": "1-2 días",
+      "status": "ACTIVO"
+    },
+    {
+      "id": "sm-3",
+      "name": "DHL",
+      "cost": 45,
+      "deliveryTime": "1-3 días",
+      "status": "ACTIVO"
+    },
+    {
+      "id": "sm-4",
+      "name": "FedEx",
+      "cost": 40,
+      "deliveryTime": "1-3 días",
+      "status": "INACTIVO"
+    },
+    {
+      "id": "sm-5",
+      "name": "Delivery Propio",
+      "cost": 8,
+      "deliveryTime": "Mismo día",
+      "status": "ACTIVO"
+    }
+  ],
+  "coupons": [
+    {
+      "id": "cp-1",
+      "code": "ANDES10",
+      "discountType": "PORCENTAJE",
+      "value": 10,
+      "status": "ACTIVO"
+    },
+    {
+      "id": "cp-2",
+      "code": "CYBERMODA",
+      "discountType": "MONTO",
+      "value": 20,
+      "status": "ACTIVO"
+    },
+    {
+      "id": "cp-3",
+      "code": "FREE_SHIP",
+      "discountType": "ENVIO",
+      "value": 0,
+      "status": "INACTIVO"
+    }
+  ],
+  "banners": [
+    {
+      "id": "bn-1",
+      "title": "Colección Invierno 2026 - Arte en Alpaca",
+      "imageUrl": "https://images.unsplash.com/photo-1520639888713-7851133b1ed0?auto=format&fit=crop&q=80&w=800",
+      "link": "#sueteres",
+      "status": "ACTIVO"
+    },
+    {
+      "id": "bn-2",
+      "title": "Envíos a todo el Perú vía Shalom, Olva y Delivery Propio",
+      "imageUrl": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=800",
+      "link": "#cobertura",
+      "status": "ACTIVO"
+    }
+  ],
+  "promotions": [
+    {
+      "id": "pr-1",
+      "title": "Cyber Andes - Invierno Dorado",
+      "description": "Precios especiales en prendas seleccionadas con hasta el 30% de descuento directo.",
+      "discount": 30,
+      "status": "ACTIVO"
     }
   ],
   "orders": [
@@ -1198,91 +438,6 @@
       "role": "ADMINISTRADOR",
       "action": "Actualización de Configuración",
       "details": "Sincronización de canales de inventario completada"
-    }
-  ],
-  "shippingMethods": [
-    {
-      "id": "sm-1",
-      "name": "Olva Courier",
-      "cost": 15,
-      "deliveryTime": "2-3 días",
-      "status": "ACTIVO"
-    },
-    {
-      "id": "sm-2",
-      "name": "Shalom",
-      "cost": 12,
-      "deliveryTime": "1-2 días",
-      "status": "ACTIVO"
-    },
-    {
-      "id": "sm-3",
-      "name": "DHL",
-      "cost": 45,
-      "deliveryTime": "1-3 días",
-      "status": "ACTIVO"
-    },
-    {
-      "id": "sm-4",
-      "name": "FedEx",
-      "cost": 40,
-      "deliveryTime": "1-3 días",
-      "status": "INACTIVO"
-    },
-    {
-      "id": "sm-5",
-      "name": "Delivery Propio",
-      "cost": 8,
-      "deliveryTime": "Mismo día",
-      "status": "ACTIVO"
-    }
-  ],
-  "coupons": [
-    {
-      "id": "cp-1",
-      "code": "ANDES10",
-      "discountType": "PORCENTAJE",
-      "value": 10,
-      "status": "ACTIVO"
-    },
-    {
-      "id": "cp-2",
-      "code": "CYBERMODA",
-      "discountType": "MONTO",
-      "value": 20,
-      "status": "ACTIVO"
-    },
-    {
-      "id": "cp-3",
-      "code": "FREE_SHIP",
-      "discountType": "ENVIO",
-      "value": 0,
-      "status": "INACTIVO"
-    }
-  ],
-  "banners": [
-    {
-      "id": "bn-1",
-      "title": "Colección Invierno 2026 - Arte en Alpaca",
-      "imageUrl": "https://images.unsplash.com/photo-1520639888713-7851133b1ed0?auto=format&fit=crop&q=80&w=800",
-      "link": "#sueteres",
-      "status": "ACTIVO"
-    },
-    {
-      "id": "bn-2",
-      "title": "Envíos a todo el Perú vía Shalom, Olva y Delivery Propio",
-      "imageUrl": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=800",
-      "link": "#cobertura",
-      "status": "ACTIVO"
-    }
-  ],
-  "promotions": [
-    {
-      "id": "pr-1",
-      "title": "Cyber Andes - Invierno Dorado",
-      "description": "Precios especiales en prendas seleccionadas con hasta el 30% de descuento directo.",
-      "discount": 30,
-      "status": "ACTIVO"
     }
   ]
 }
